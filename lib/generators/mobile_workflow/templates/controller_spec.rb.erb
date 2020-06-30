@@ -1,0 +1,41 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+require 'json'
+
+RSpec.describe <%= controller_class_name %>Controller do
+  let(:params) { {} }
+  let(:json_response) { JSON.parse(response.body, symbolize_names: true) }
+  
+  describe 'GET #index' do
+    let!(:<%= controller_class_name.singularize.underscore %>) { <%= controller_class_name.singularize %>.create }
+    before(:each) { get :index, params: params }
+    
+    context 'ok' do
+      it { expect(json_response[0][:id]).to eq <%= controller_class_name.singularize.underscore %>.id }               
+      it { expect(response.status).to eq 200 }
+    end
+  end
+  
+  describe 'GET #show' do
+    let(:<%= controller_class_name.singularize.underscore %>) { <%= controller_class_name.singularize %>.create }
+    let(:params) { { id: <%= controller_class_name.singularize.underscore %>.id } }
+    before(:each) { get :show, params: params }
+    
+    context 'ok' do                
+      it { expect(response.status).to eq 200 }
+    end
+  end
+  
+  describe 'POST #create' do
+    let(:payload_params) { {text: 'OK'} }
+    let(:params) { { payload: payload_params, binaries: [{identifier: 'record', mimetype: 'video/mp4'}] } }
+    before(:each) { post :create, params: params }
+    
+    context 'ok' do
+      it { expect(<%= controller_class_name.singularize %>.count).to eq 1 }          
+      it { expect(response.status).to eq 201 }
+      it { expect(json_response[:binary_urls]).to_not be_nil }
+    end
+  end
+end

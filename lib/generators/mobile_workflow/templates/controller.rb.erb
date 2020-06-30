@@ -1,0 +1,41 @@
+<% module_namespacing do -%>
+class <%= controller_class_name %>Controller < ApiController
+  before_action :rewrite_payload, only: :create
+
+  load_and_authorize_resource
+
+  def index
+    render json: @<%= plural_table_name %>.collect(&:list_item_as_json)
+  end
+
+  def show
+    render json: @<%= singular_table_name %>.display_as_json
+  end
+
+  def create
+    if @<%= singular_table_name %>.save
+      render json: { binary_urls: binary_urls(@<%= singular_table_name %>), response: @<%= singular_table_name %> }, status: :created
+    else
+      head :unprocessable_entity 
+    end
+  end
+
+  private
+  def rewrite_payload
+    # Use this method to make any changes to params to make them compatible with ActiveRecord
+  
+    # 1. Example to get properties from question
+    # params[:payload][:name] = params.dig(:payload, :name, :answer)
+  
+    # 2. Example to get selected id from a list
+    # passport_id = params.dig(:payload, :choose_passport, :selected, :id)
+
+    Rails.logger.debug "Pre-rewrite params: #{params}"
+    <%= rewrite_params %> 
+  end
+
+  def <%= singular_table_name.underscore %>_params
+    params.require(:<%= singular_table_name %>).permit(<%= permitted_params %>)
+  end
+end
+<% end %>

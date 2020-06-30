@@ -1,0 +1,56 @@
+<% module_namespacing do -%>
+class <%= class_name %> < <%= parent_class_name.classify %>
+  # Enable if you need to generate attachment URLs
+  # include Rails.application.routes.url_helpers
+  
+<% attributes.select(&:reference?).each do |attribute| -%>
+  belongs_to :<%= attribute.name %><%= ', polymorphic: true' if attribute.polymorphic? %>
+<% end -%>
+<% attributes.select(&:attachment?).each do |attribute| -%>
+  has_one_attached :<%= attribute.name %>
+<% end -%>
+<% attributes.select(&:attachments?).each do |attribute| -%>
+  has_many_attached :<%= attribute.name %>
+<% end -%>
+
+  def list_item_as_json
+    {
+      id: id,
+      text: text,
+      # detailText: nil,
+      # sfSymbolName: nil,
+      # imageURL: preview_url(image, height: 100, width: 100)
+    }
+  end
+  
+  def display_as_json
+    [
+      {label: "ID", text: text, mimeType: 'text/plain'},
+      {label: "Text", text: text, mimeType: 'text/plain'}
+    ]
+  end
+  
+  # private
+  # include Rails.application.routes.url_helpers # for attachment URLs
+  # def preview_url(attachment, height:, width:, options: { resize_to_fill: [height, width]} )
+  #   return nil unless attachment.attached?
+  #
+  #   if attachment.image?
+  #     Rails.application.routes.url_helpers.rails_representation_url(attachment.variant(combine_options: options), host: attachment_host)
+  #   elsif attachment.previewable?
+  #     Rails.application.routes.url_helpers.rails_representation_url(attachment.preview(options), host: attachment_host)
+  #   else
+  #     return nil
+  #   end
+  # end
+  #
+  # def attachment_url(attachment)
+  #   Rails.application.routes.url_helpers.rails_blob_url(attachment, host: attachment_host)
+  # end
+  #
+  # def attachment_host
+  #   "https://#{ENV['HEROKU_APP_NAME']}.herokuapp.com"
+  # end
+
+end
+<% end -%>
