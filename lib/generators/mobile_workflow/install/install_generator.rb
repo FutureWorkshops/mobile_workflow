@@ -14,11 +14,15 @@ module MobileWorkflow
         )
       end
       
+      def mount_engine
+        route "mount MobileWorkflow::Engine => '/'"
+      end
+      
       def generate_models
         say "Generating models"
         @model_properties = {}
         open_api_spec[:components][:schemas].each_pair do |model_name, schema|
-          next if ["answer", "attachment"].include? model_name # Don't generate schemas for MW schemas
+          next if ["answer", "attachment", "ListItem"].include? model_name # Don't generate schemas for MW schemas
         
           model_name = model_name.underscore
           model_properties = model_properties(model_name, schema)
