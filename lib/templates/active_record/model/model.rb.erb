@@ -25,8 +25,10 @@ class <%= class_name %> < <%= parent_class_name.classify %>
   
   def display_as_json
     [
-      {label: "ID", text: text, mimeType: 'text/plain'},
-      {label: "Text", text: text, mimeType: 'text/plain'}
+      {label: "ID", text: id, mimeType: 'text/plain'},
+      {label: "Text", text: text, mimeType: 'text/plain'},
+      {previewURL: preview_url(image, height: 300, width: 600), url: attachment_url(image), mimeType: 'image/jpg'},
+      {previewURL: preview_url(video, height: 300, width: 600), url: attachment_url(video), mimeType: 'video/mp4'},
     ]
   end
   
@@ -45,6 +47,7 @@ class <%= class_name %> < <%= parent_class_name.classify %>
   # end
   #
   # def attachment_url(attachment)
+  #   return nil unless attachment.attached?
   #   Rails.application.routes.url_helpers.rails_blob_url(attachment, host: attachment_host)
   # end
   #
