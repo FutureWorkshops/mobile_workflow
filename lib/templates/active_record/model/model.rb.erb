@@ -1,7 +1,6 @@
 <% module_namespacing do -%>
 class <%= class_name %> < <%= parent_class_name.classify %>
-  # Enable if you need to generate attachment URLs
-  # include Rails.application.routes.url_helpers
+  include MobileWorkflow::Displayable
   
 <% attributes.select(&:reference?).each do |attribute| -%>
   belongs_to :<%= attribute.name %><%= ', polymorphic: true' if attribute.polymorphic? %>
@@ -14,23 +13,11 @@ class <%= class_name %> < <%= parent_class_name.classify %>
 <% end -%>
 
   def list_item_as_json
-    {
-      id: id,
-      text: text,
-      # detailText: nil,
-      # sfSymbolName: nil,
-      # imageURL: preview_url(image, height: 100, width: 100)
-    }
+    mw_list_item(text: text)
   end
   
   def display_as_json
-    [
-      {label: "ID", text: id, mimeType: 'text/plain'},
-      {label: "Text", text: text, mimeType: 'text/plain'},
-      #{previewURL: preview_url(image, height: 300, width: 600), url: attachment_url(image), mimeType: 'image/jpg'},
-      #{previewURL: preview_url(video, height: 300, width: 600), url: attachment_url(video), mimeType: 'video/mp4'},
-      #{label: "Approve", url: approval_path(self), method: :put, mimeType: 'application/url'}
-    ]
+    [mw_display_text(label: 'ID', text: id.to_s)]
   end
 
 end
