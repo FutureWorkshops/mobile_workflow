@@ -27,33 +27,11 @@ class <%= class_name %> < <%= parent_class_name.classify %>
     [
       {label: "ID", text: id, mimeType: 'text/plain'},
       {label: "Text", text: text, mimeType: 'text/plain'},
-      {previewURL: preview_url(image, height: 300, width: 600), url: attachment_url(image), mimeType: 'image/jpg'},
-      {previewURL: preview_url(video, height: 300, width: 600), url: attachment_url(video), mimeType: 'video/mp4'},
+      #{previewURL: preview_url(image, height: 300, width: 600), url: attachment_url(image), mimeType: 'image/jpg'},
+      #{previewURL: preview_url(video, height: 300, width: 600), url: attachment_url(video), mimeType: 'video/mp4'},
+      #{label: "Approve", url: approval_path(self), method: :put, mimeType: 'application/url'}
     ]
   end
-  
-  # private
-  # include Rails.application.routes.url_helpers # for attachment URLs
-  # def preview_url(attachment, height:, width:, options: { resize_to_fill: [height, width]} )
-  #   return nil unless attachment.attached?
-  #
-  #   if attachment.image?
-  #     Rails.application.routes.url_helpers.rails_representation_url(attachment.variant(combine_options: options), host: attachment_host)
-  #   elsif attachment.previewable?
-  #     Rails.application.routes.url_helpers.rails_representation_url(attachment.preview(options), host: attachment_host)
-  #   else
-  #     return nil
-  #   end
-  # end
-  #
-  # def attachment_url(attachment)
-  #   return nil unless attachment.attached?
-  #   Rails.application.routes.url_helpers.rails_blob_url(attachment, host: attachment_host)
-  # end
-  #
-  # def attachment_host
-  #   "https://#{ENV['HEROKU_APP_NAME']}.herokuapp.com"
-  # end
 
 end
 <% end -%>
