@@ -1,5 +1,19 @@
 class ApiController < ActionController::API
+  <% if options[:doorkeeper_oauth] %>
+  before_action :doorkeeper_authorize!, unless: :anonymous_action?
+  
+  def current_resource_owner
+    User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
+  end
+  alias_method :current_user, :current_resource_owner
+  
+  protected
+  def anonymous_action?
+    false
+  end
+  <% else %>
   def current_user
     nil
   end
+  <% end %>
 end

@@ -6,16 +6,26 @@ module MobileWorkflow
       source_root File.expand_path("../templates", __FILE__)
 
       class_option :open_api_spec_path, type: :string, default: "config/open_api_spec.json"
+      class_option :doorkeeper_oauth, type: :boolean, default: false
 
       def create_api_controller
-        template(
-          "api_controller.rb.erb",
-          "app/controllers/api_controller.rb",
-        )
+        template("api_controller.rb.erb", "app/controllers/api_controller.rb")
       end
       
       def mount_engine
         route "mount MobileWorkflow::Engine => '/'"
+      end
+      
+      def generate_doorkeeper
+        return unless options[:doorkeeper_oauth]
+        say "Generating Doorkeeper OAuth"
+        
+        generate 'doorkeeper:install'
+        gsub_file 'config/initializers/doorkeeper.rb', 'raise "Please configure doorkeeper resource_owner_authenticator block located in #{__FILE__}"', 'User.find_by_id(session[:user_id]) || redirect_to(new_session_url(return_to: request.fullpath))'
+        generate 'doorkeeper:migration'
+        template("user.rb.erb", "app/models/user.rb")
+        template("sessions_controller.rb.erb", "app/controllers/sessions_controller.rb")
+        route "resources :sessions, only: [:new, :create]"
       end
       
       def generate_models
