@@ -54,6 +54,10 @@ module MobileWorkflow
           route "resources :#{plural_controller_name}, only: [:index, :show, :create]"
         end
       end
+      
+      def generate_seeds
+        template("seeds.rb.erb", "db/seeds.rb")
+      end
 
       private
       def open_api_spec

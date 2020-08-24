@@ -1,0 +1,3 @@
+<%- if options[:doorkeeper_oauth] %>
+Doorkeeper::Application.create! name: 'Main App', redirect_uri: 'mww://callback', scopes: 'public'
+<%- end %>
