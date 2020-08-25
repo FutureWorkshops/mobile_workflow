@@ -2,7 +2,7 @@ module MobileWorkflow
   module Displayable
     extend ActiveSupport::Concern
     include Rails.application.routes.url_helpers
-  
+      
     def mw_list_item(id: self.id, text:, detail_text: nil, sf_symbol_name: nil, image_attachment: nil)
       mw_list_item = {id: id, text: text, detailText: detail_text, sfSymbolName: sf_symbol_name}
       mw_list_item[:imageURL] = preview_url(image_attachment, height: 100, width: 100) if image_attachment
@@ -10,27 +10,27 @@ module MobileWorkflow
     end
   
     def mw_display_text(label:, text:)
-      {label: label, text: text.to_s, mimeType: 'text/plain'}
+      {type: :text, label: label, text: text.to_s}
     end
   
     def mw_display_image(attachment)
-      {previewURL: preview_url(attachment, height: 300, width: 600), url: attachment_url(attachment), mimeType: 'image/jpg'}
+      {type: :image, previewURL: preview_url(attachment, height: 300, width: 600), url: attachment_url(attachment)}
     end
     
     def mw_display_video(attachment)
-      {previewURL: preview_url(attachment, height: 300, width: 600), url: attachment_url(attachment), mimeType: 'video/mp4'}
+      {type: :video, previewURL: preview_url(attachment, height: 300, width: 600), url: attachment_url(attachment)}
     end
   
     def mw_display_button(label:, url:, method: :put)
-      {label: label, url: url, method: method, mimeType: 'application/url'}
+      {type: :button, label: label, url: url, method: method}
     end
   
     def mw_display_delete_button(label: "Delete", url:)
-      {label: label, url: url, method: :delete, mimeType: 'application/url'}
+      {type: :button, label: label, url: url, method: :delete}
     end
     
     def mw_modal_workflow_button(label: , workflow:)
-      {label: label, workflow: workflow, mimeType: 'application/workflow'}
+      {type: :button, label: label, workflow: workflow}
     end
   
     private
