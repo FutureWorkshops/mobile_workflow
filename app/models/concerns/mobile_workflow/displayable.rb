@@ -26,6 +26,10 @@ module MobileWorkflow
     def mw_display_delete_button(label: "Delete", url:)
       {label: label, url: url, method: :delete, mimeType: 'application/url'}
     end
+    
+    def mw_modal_workflow_button(label: , workflow:)
+      {label: label, workflow: workflow, mimeType: 'application/workflow'}
+    end
   
     private
   
