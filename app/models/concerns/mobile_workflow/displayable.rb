@@ -18,6 +18,10 @@ module MobileWorkflow
     def mw_display_image(attachment)
       {previewURL: preview_url(attachment, height: 300, width: 600), url: attachment_url(attachment), mimeType: 'image/jpg'}
     end
+    
+    def mw_display_video(attachment)
+      {previewURL: preview_url(attachment, height: 300, width: 600), url: attachment_url(attachment), mimeType: 'video/mp4'}
+    end
   
     def mw_display_button(label:, url:, method: :put)
       {label: label, url: url, method: method, mimeType: 'application/url'}
