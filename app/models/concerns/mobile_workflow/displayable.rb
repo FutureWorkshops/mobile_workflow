@@ -2,6 +2,8 @@ module MobileWorkflow
   module Displayable
     extend ActiveSupport::Concern
     include Rails.application.routes.url_helpers
+    
+    ON_SUCCESS_OPTIONS = [:none, :reload, :backward, :forward]
       
     def mw_list_item(id: self.id, text:, detail_text: nil, sf_symbol_name: nil, image_attachment: nil)
       mw_list_item = {id: id, text: text, detailText: detail_text, sfSymbolName: sf_symbol_name}
@@ -21,19 +23,28 @@ module MobileWorkflow
       {type: :video, previewURL: preview_url(attachment, height: 300, width: 600), url: attachment_url(attachment)}
     end
   
-    def mw_display_button(label:, url:, method: :put)
-      {type: :button, label: label, url: url, method: method}
+    def mw_display_button(label:, url:, method: :put, on_success: :reload)
+      check_on_success!(on_success)
+      
+      {type: :button, label: label, url: url, method: method, onSuccess: on_success}
     end
   
-    def mw_display_delete_button(label: "Delete", url:)
-      {type: :button, label: label, url: url, method: :delete}
+    def mw_display_delete_button(url:, label: "Delete", on_success: :backward)
+      check_on_success!(on_success)
+      
+      {type: :button, label: label, url: url, method: :delete, onSuccess: on_success}
     end
     
-    def mw_modal_workflow_button(label: , workflow:)
-      {type: :button, label: label, workflow: workflow}
+    def mw_modal_workflow_button(label:, workflow:, on_success: :none)
+      check_on_success!(on_success)
+      
+      {type: :button, label: label, workflow: workflow, onSuccess: on_success}
     end
   
     private
+    def check_on_success!(on_success)
+      raise 'Unknown on_success action' unless ON_SUCCESS_OPTIONS.include?(on_success)
+    end
   
     def preview_url(attachment, height:, width:, options: { resize_to_fill: [height, width]} )
       return nil unless attachment.attached?
