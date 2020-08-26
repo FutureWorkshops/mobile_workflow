@@ -35,10 +35,10 @@ module MobileWorkflow
       {type: :button, label: label, url: url, method: :delete, onSuccess: on_success}
     end
     
-    def mw_modal_workflow_button(label:, workflow:, on_success: :none)
+    def mw_modal_workflow_button(label:, modal_workflow:, on_success: :none)
       check_on_success!(on_success)
       
-      {type: :button, label: label, workflow: workflow, onSuccess: on_success}
+      {type: :button, label: label, modalWorkflow: modal_workflow, onSuccess: on_success}
     end
   
     private
