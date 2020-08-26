@@ -24,25 +24,25 @@ module MobileWorkflow
     end
   
     def mw_display_button(label:, url:, method: :put, on_success: :reload)
-      check_on_success!(on_success)
+      validate_on_success!(on_success)
       
       {type: :button, label: label, url: url, method: method, onSuccess: on_success}
     end
   
-    def mw_display_delete_button(url:, label: "Delete", on_success: :backward)
-      check_on_success!(on_success)
+    def mw_display_delete_button(url:, label: "Delete", method: :delete, on_success: :backward)
+      validate_on_success!(on_success)
       
-      {type: :button, label: label, url: url, method: :delete, onSuccess: on_success}
+      {type: :button, label: label, url: url, method: method, onSuccess: on_success}
     end
     
     def mw_modal_workflow_button(label:, modal_workflow:, on_success: :none)
-      check_on_success!(on_success)
+      validate_on_success!(on_success)
       
       {type: :button, label: label, modalWorkflow: modal_workflow, onSuccess: on_success}
     end
   
     private
-    def check_on_success!(on_success)
+    def validate_on_success!(on_success)
       raise 'Unknown on_success action' unless ON_SUCCESS_OPTIONS.include?(on_success)
     end
   
