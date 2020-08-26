@@ -24,9 +24,8 @@ module MobileWorkflow
     end
   
     def mw_display_button(label:, url:, method: :put, on_success: :reload)
-      validate_on_success!(on_success)
-      
-      {type: :button, label: label, url: url, method: method, onSuccess: on_success}
+      warn "[DEPRECATION] `mw_display_button` is deprecated.  Please use `mw_display_button_for_url` instead."
+      mw_display_button_for_url(label: label, url: url, method: method, on_success: on_success)
     end
   
     def mw_display_delete_button(url:, label: "Delete", method: :delete, on_success: :backward)
@@ -35,7 +34,13 @@ module MobileWorkflow
       {type: :button, label: label, url: url, method: method, onSuccess: on_success}
     end
     
-    def mw_modal_workflow_button(label:, modal_workflow:, on_success: :none)
+    def mw_display_button_for_url(label:, url:, method: :put, on_success: :reload)
+      validate_on_success!(on_success)
+      
+      {type: :button, label: label, url: url, method: method, onSuccess: on_success}
+    end
+    
+    def mw_display_button_for_modal_workflow(label:, modal_workflow:, on_success: :none)
       validate_on_success!(on_success)
       
       {type: :button, label: label, modalWorkflow: modal_workflow, onSuccess: on_success}
