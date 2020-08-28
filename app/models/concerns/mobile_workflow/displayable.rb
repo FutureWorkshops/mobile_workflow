@@ -11,8 +11,8 @@ module MobileWorkflow
       mw_list_item.compact   
     end
   
-    def mw_display_text(label:, text:)
-      {type: :text, label: label, text: text.to_s}
+    def mw_display_text(text:, label: nil)
+      {type: :text, label: label, text: text.to_s}.compact
     end
   
     def mw_display_image(attachment)
