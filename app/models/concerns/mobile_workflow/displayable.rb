@@ -24,7 +24,9 @@ module MobileWorkflow
     end
   
     def mw_display_button(label:, on_success: :forward)
-      mw_display_button_for_url(label: label, on_success: on_success)
+      validate_on_success!(on_success)
+      
+      {type: :button, label: label, onSuccess: on_success}
     end
   
     def mw_display_delete_button(url:, label: "Delete", method: :delete, on_success: :backward)

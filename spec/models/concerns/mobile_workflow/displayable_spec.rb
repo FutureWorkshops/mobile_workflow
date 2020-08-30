@@ -16,10 +16,10 @@ describe MobileWorkflow::Displayable do
   
   describe '#mw_display_button' do
     context 'label, url' do
-      let(:result) { subject.mw_display_button(label: 'Approve', url: '/approve') }
+      let(:result) { subject.mw_display_button(label: 'Approve') }
       
       it { expect(result[:label]).to eq 'Approve' }
-      it { expect(result[:url]).to eq '/approve' }
+      it { expect(result[:onSuccess]).to eq :forward }
     end
   end
 end
