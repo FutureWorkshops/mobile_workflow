@@ -23,9 +23,8 @@ module MobileWorkflow
       {type: :video, previewURL: preview_url(attachment, height: 300, width: 600), url: attachment_url(attachment)}
     end
   
-    def mw_display_button(label:, url:, method: :put, on_success: :reload)
-      warn "[DEPRECATION] `mw_display_button` is deprecated.  Please use `mw_display_button_for_url` instead."
-      mw_display_button_for_url(label: label, url: url, method: method, on_success: on_success)
+    def mw_display_button(label: on_success: :forward)
+      mw_display_button_for_url(label: label, on_success: on_success)
     end
   
     def mw_display_delete_button(url:, label: "Delete", method: :delete, on_success: :backward)
