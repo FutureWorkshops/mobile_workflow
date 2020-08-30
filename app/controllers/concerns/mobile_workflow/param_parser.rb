@@ -1,7 +1,7 @@
 module MobileWorkflow
   module ParamParser
     def mw_rewrite_payload_properties(model:, properties:)
-      properties.each {|property| rewrite_payload_property(model: model, model_property: property, params_property: property)}
+      properties.each {|property| mw_rewrite_payload_property(model: model, model_property: property, params_property: property)}
     end
 
     def mw_rewrite_payload_property(model:, model_property:, params_property:)
