@@ -23,7 +23,7 @@ module MobileWorkflow
       {type: :video, previewURL: preview_url(attachment, height: 300, width: 600), url: attachment_url(attachment)}
     end
   
-    def mw_display_button(label: on_success: :forward)
+    def mw_display_button(label:, on_success: :forward)
       mw_display_button_for_url(label: label, on_success: on_success)
     end
   
