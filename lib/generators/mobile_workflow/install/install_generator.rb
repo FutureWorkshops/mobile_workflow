@@ -66,7 +66,7 @@ module MobileWorkflow
       
       def read_openapi_spec
         say "Loading OpenAPI Spec: #{open_api_spec_path}" 
-        return JSON.parse(File.read(open_api_spec_path)).with_indifferent_access 
+        return JSON.parse(File.read(File.join(Rails.root, open_api_spec_path))).with_indifferent_access 
       end
       
       def open_api_spec_path
