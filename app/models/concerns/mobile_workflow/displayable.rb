@@ -4,6 +4,7 @@ module MobileWorkflow
     include Rails.application.routes.url_helpers
     
     ON_SUCCESS_OPTIONS = [:none, :reload, :backward, :forward]
+    BUTTON_STYLES = [:primary, :outline, :danger]
       
     def mw_list_item(id: self.id, text:, detail_text: nil, sf_symbol_name: nil, image_attachment: nil)
       mw_list_item = {id: id, text: text, detailText: detail_text, sfSymbolName: sf_symbol_name}
@@ -23,33 +24,41 @@ module MobileWorkflow
       {type: :video, previewURL: preview_url(attachment, height: 300, width: 600), url: attachment_url(attachment)}
     end
   
-    def mw_display_button(label:, on_success: :forward)
+    def mw_display_button(label:, style: :primary, on_success: :forward)
       validate_on_success!(on_success)
+      validate_button_style!(style)
       
-      {type: :button, label: label, onSuccess: on_success}
+      {type: :button, label: label, style: style, onSuccess: on_success}
     end
   
-    def mw_display_delete_button(url:, label: "Delete", method: :delete, on_success: :backward)
+    def mw_display_delete_button(url:, label: "Delete", method: :delete, style: :danger, on_success: :backward)
       validate_on_success!(on_success)
+      validate_button_style!(style)
       
-      {type: :button, label: label, url: url, method: method, onSuccess: on_success}
+      {type: :button, label: label, url: url, method: method, style: style, onSuccess: on_success}
     end
     
-    def mw_display_button_for_url(label:, url:, method: :put, on_success: :reload)
+    def mw_display_button_for_url(label:, url:, method: :put, style: :primary, on_success: :reload)
       validate_on_success!(on_success)
+      validate_button_style!(style)
       
-      {type: :button, label: label, url: url, method: method, onSuccess: on_success}
+      {type: :button, label: label, url: url, method: method, style: style, onSuccess: on_success}
     end
     
-    def mw_display_button_for_modal_workflow(label:, modal_workflow:, on_success: :none)
+    def mw_display_button_for_modal_workflow(label:, modal_workflow:, style: :primary, on_success: :none)
       validate_on_success!(on_success)
+      validate_button_style!(style)
       
-      {type: :button, label: label, modalWorkflow: modal_workflow, onSuccess: on_success}
+      {type: :button, label: label, modalWorkflow: modal_workflow, style: style, onSuccess: on_success}
     end
   
     private
     def validate_on_success!(on_success)
       raise 'Unknown on_success action' unless ON_SUCCESS_OPTIONS.include?(on_success)
+    end
+    
+    def validate_button_style!(style)
+      raise 'Unknown style' unless BUTTON_STYLES.include?(style)      
     end
   
     def preview_url(attachment, height:, width:, options: { resize_to_fill: [height, width]} )
