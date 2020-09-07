@@ -6,12 +6,10 @@ module MobileWorkflow
       def binary_urls(object)
         return unless params["binaries"]
     
-        params["binaries"].collect do |binary|
-          property = binary["identifier"].split('/')[0] # i.e. image/jpg --> image, video/mp4 --> video
-      
+        params["binaries"].collect do |binary|      
           {
             "identifier" => binary["identifier"],
-            "url" => presigned_url("#{object.class.name.underscore}/#{object.id}/#{property}"),
+            "url" => presigned_url("#{object.class.name.underscore}/#{object.id}/#{binary["identifier"]}"),
             "method" => "PUT"
           }
         end
