@@ -46,6 +46,10 @@ module MobileWorkflow
       end
   
       def attribute_name
+        file_name.split(".")[0] # remove the extension
+      end
+      
+      def file_name
         key_identifiers[2]
       end
   
