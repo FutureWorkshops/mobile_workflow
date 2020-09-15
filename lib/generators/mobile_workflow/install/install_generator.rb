@@ -78,12 +78,23 @@ module MobileWorkflow
       end
       
       def model_properties(name, schema)
-        generated_properties_args = schema["properties"].keys.collect{|key| "#{key}:string" }.join(" ")
+        generated_properties_args = schema["properties"].keys.collect{|key| "#{key}:#{model_property_type(schema["properties"][key])}" }.join(" ")
         if yes?("Use generated schema #{name}(#{generated_properties_args})[yn]?")
           generated_properties_args
         else
           ask "Specify schema for #{name}: (e.g. text:string image:attachment region:reference)"
         end      
+      end
+      
+      def model_property_type(property)
+        case property['$ref']
+        when "#/components/schemas/answer"
+          'string'
+        when "#/components/schemas/attachment"
+          'attachment'
+        else
+          'string'
+        end
       end
     end
   end
