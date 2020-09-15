@@ -1,5 +1,6 @@
 <% module_namespacing do -%>
 class <%= controller_class_name %>Controller < ApiController
+  # include MobileWorkflow::S3Storable
   before_action :rewrite_payload, only: :create
 
   load_and_authorize_resource
