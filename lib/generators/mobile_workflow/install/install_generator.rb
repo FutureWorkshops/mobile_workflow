@@ -3,6 +3,10 @@ require "rails/generators/base"
 module MobileWorkflow
   module Generators
     class InstallGenerator < Rails::Generators::Base
+      
+      # Schemas to avoid generating models for (static items from MW)
+      SKIP_SCHEMAS = ["answer", "attachment", "ListItem", "DisplayItem", "DisplayText", "DisplayButton", "DisplayImage", "DisplayVideo"]
+      
       source_root File.expand_path("../templates", __FILE__)
 
       class_option :open_api_spec_path, type: :string, default: "config/open_api_spec.json"
@@ -32,7 +36,7 @@ module MobileWorkflow
         say "Generating models"
         @model_properties = {}
         open_api_spec[:components][:schemas].each_pair do |model_name, schema|
-          next if ["answer", "attachment", "ListItem"].include? model_name # Don't generate schemas for MW schemas
+          next if SKIP_SCHEMAS.include? model_name # Don't generate schemas for MW schemas
         
           model_name = model_name.underscore
           model_properties = model_properties(model_name, schema)
