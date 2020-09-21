@@ -25,8 +25,10 @@ module MobileWorkflow
       end
       
       def rewrite_params
-        init_params = "\n\t\tparams[:#{singular_table_name}] = {}"
-        attributes_names = attributes_names.map {|name| "params[:#{singular_table_name}][:#{name}] = params.dig(:payload, :#{name}, :answer)" }.join("\n\t\t")
+        if attributes_names
+          init_params = "\n\t\tparams[:#{singular_table_name}] = {}"
+          attributes_names.map {|name| "params[:#{singular_table_name}][:#{name}] = params.dig(:payload, :#{name}, :answer)" }.join("\n\t\t")
+        end
       end
     end
   end
