@@ -27,6 +27,7 @@ module MobileWorkflow
         generate 'doorkeeper:install'
         gsub_file 'config/initializers/doorkeeper.rb', 'raise "Please configure doorkeeper resource_owner_authenticator block located in #{__FILE__}"', 'User.find_by_id(session[:user_id]) || redirect_to(new_session_url(return_to: request.fullpath))'
         generate 'doorkeeper:migration'
+        generate 'doorkeeper:pkce'
         template("user.rb.erb", "app/models/user.rb")
         template("sessions_controller.rb.erb", "app/controllers/sessions_controller.rb")
         route "resources :sessions, only: [:new, :create]"
