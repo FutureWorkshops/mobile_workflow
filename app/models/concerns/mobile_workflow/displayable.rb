@@ -17,11 +17,11 @@ module MobileWorkflow
     end
   
     def mw_display_image(attachment)
-      {type: :image, previewURL: preview_url(attachment, height: 300, width: 600), url: attachment_url(attachment)}
+      {type: :image, previewURL: preview_url(attachment, height: 600, width: 1200), url: attachment_url(attachment)}
     end
     
     def mw_display_video(attachment)
-      {type: :video, previewURL: preview_url(attachment, height: 300, width: 600), url: attachment_url(attachment)}
+      {type: :video, previewURL: preview_url(attachment, height: 600, width: 1200), url: attachment_url(attachment)}
     end
   
     def mw_display_button(label:, style: :primary, on_success: :forward)
