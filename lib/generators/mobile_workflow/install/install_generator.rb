@@ -48,8 +48,6 @@ module MobileWorkflow
 
       def generate_controllers_and_routes
         say "Generating controllers"
-        controller_names = open_api_spec[:paths].keys.collect{|url_path| url_path.split('/').last }
-      
         route "root to: 'admin/#{controller_names.first}#index'"
         
         controller_names.each do |plural_controller_name|
@@ -65,6 +63,14 @@ module MobileWorkflow
       end
 
       private
+      def controller_names
+        @controller_names ||= oai_spec_paths.collect{|url_path| url_path.split('/')[1] }.uniq
+      end
+      
+      def oai_spec_paths
+        @oai_spec_paths ||= open_api_spec[:paths].keys
+      end
+      
       def open_api_spec
         @open_api_spec ||= read_openapi_spec
       end
