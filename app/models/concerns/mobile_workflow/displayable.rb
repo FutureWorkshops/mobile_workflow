@@ -20,6 +20,15 @@ module MobileWorkflow
       {type: :image, previewURL: preview_url(attachment, height: 600, width: 1200), url: attachment_url(attachment)}
     end
     
+    def mw_display_unsplash_image(image_url)
+      if image_url.start_with? "https://unsplash.com/photos"
+        unsplash_id = image_url.split('/').last
+        image_url = "https://source.unsplash.com/#{unsplash_id}/800x600"
+      end
+      
+      {type: :image, previewURL: image_url, url: image_url}
+    end
+    
     def mw_display_video(attachment)
       {type: :video, previewURL: preview_url(attachment, height: 600, width: 1200), url: attachment_url(attachment)}
     end
