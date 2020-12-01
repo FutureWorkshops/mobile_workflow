@@ -8,7 +8,7 @@ RSpec.describe <%= controller_class_name %>Controller do
   let(:json_response) { JSON.parse(response.body, symbolize_names: true) }
   
   describe 'GET #index' do
-    let!(:<%= controller_class_name.singularize.underscore %>) { <%= controller_class_name.singularize %>.create }
+    let!(:<%= controller_class_name.singularize.underscore %>) { create(:<%= controller_class_name.singularize.underscore %>) }
     before(:each) { get :index, params: params }
     
     context 'ok' do
@@ -18,7 +18,7 @@ RSpec.describe <%= controller_class_name %>Controller do
   end
   
   describe 'GET #show' do
-    let(:<%= controller_class_name.singularize.underscore %>) { <%= controller_class_name.singularize %>.create }
+    let(:<%= controller_class_name.singularize.underscore %>) { create(:<%= controller_class_name.singularize.underscore %>) }
     let(:params) { { id: <%= controller_class_name.singularize.underscore %>.id } }
     before(:each) { get :show, params: params }
     
