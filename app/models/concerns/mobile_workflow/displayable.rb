@@ -45,11 +45,11 @@ module MobileWorkflow
       {type: :button, label: label, url: url, method: method, style: style, onSuccess: on_success}
     end
     
-    def mw_display_button_for_modal_workflow(label:, modal_workflow:, style: :primary, on_success: :none)
+    def mw_display_button_for_modal_workflow(label:, modal_workflow_name:, style: :primary, on_success: :none)
       validate_on_success!(on_success)
       validate_button_style!(style)
       
-      {type: :button, label: label, modalWorkflow: modal_workflow, style: style, onSuccess: on_success}
+      {type: :button, label: label, modalWorkflow: modal_workflow_name, style: style, onSuccess: on_success}
     end
   
     private
