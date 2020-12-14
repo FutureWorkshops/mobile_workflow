@@ -1,4 +1,9 @@
 class ApiController < ActionController::API
+  rescue_from CanCan::AccessDenied do |exception|
+    Rails.logger.debug "Access denied on #{exception.action} #{exception.subject.inspect}"
+    head :forbidden
+  end
+
   <% if options[:doorkeeper_oauth] %>
   before_action :doorkeeper_authorize!, unless: :anonymous_action?
   
