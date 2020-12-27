@@ -10,6 +10,7 @@ end
 if ARGV.empty?
   puts "USAGE: mwf <platform> <command> [options]"
   puts "Example: mwf rails create:app_server --help"
+  puts "Example: mwf rails destroy:app_server --help"
   exit 0
 elsif ['-v', '--version'].include? ARGV[0]
   puts MobileWorkflow::VERSION
