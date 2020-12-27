@@ -12,10 +12,12 @@ Gem::Specification.new do |spec|
   spec.homepage    = "https://github.com/futureworkshops/mobile_workflow"
   spec.summary     = "A Rails engine to provide API support for Mobile Workflow Apps."
   spec.license     = "MIT"
+  spec.required_ruby_version = ">= #{MobileWorkflow::RUBY_VERSION}"
 
-  spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+  spec.files = Dir["{app,config,db,lib,bin}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+  spec.executables = ['mwf']
 
-  spec.add_dependency "rails", "~> 6.0.3", ">= 6.0.3.2"
+  spec.add_dependency "rails", ">= #{MobileWorkflow::RAILS_VERSION}"
 
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "rspec-rails"
