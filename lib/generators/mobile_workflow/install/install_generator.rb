@@ -5,7 +5,7 @@ module MobileWorkflow
     class InstallGenerator < Rails::Generators::Base
       
       # Schemas to avoid generating models for (static items from MW)
-      SKIP_SCHEMAS = ["answer", "attachment", "ListItem", "DisplayItem", "DisplayText", "DisplayButton", "DisplayImage", "DisplayVideo"]
+      SKIP_SCHEMAS = ["attachment", "ListItem", "DisplayItem", "DisplayText", "DisplayButton", "DisplayImage", "DisplayVideo"]
       
       source_root File.expand_path("../templates", __FILE__)
 
