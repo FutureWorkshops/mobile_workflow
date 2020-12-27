@@ -94,14 +94,10 @@ module MobileWorkflow
       end
       
       def model_property_type(property)
-        case property['$ref']
-        when "#/components/schemas/answer"
-          'string'
-        when "#/components/schemas/attachment"
-          'attachment'
-        else
-          'string'
-        end
+        return property["type"] unless property["type"].blank?
+        return 'attachment' if property['$ref'] == "#/components/schemas/attachment"
+        
+        raise 'Unknown property type'
       end
     end
   end

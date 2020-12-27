@@ -7,9 +7,9 @@ module MobileWorkflow
       let(:name) { 'mobile_workflow:controller' }
       subject { described_class.new(args) }
 
-      describe '#rewrite_params' do
-        before(:each) { allow(subject).to receive(:attributes_names) { nil } }
-        it { expect(subject.send(:rewrite_params)).to eq nil }
+      describe '#permitted_params' do
+        before(:each) { allow(subject).to receive(:attributes_names) { ["name", "age"] } }
+        it { expect(subject.send(:permitted_params)).to eq ":name, :age" }
       end
     end
   end
