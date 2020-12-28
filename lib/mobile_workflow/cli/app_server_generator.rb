@@ -37,7 +37,7 @@ module MobileWorkflow::Cli
         build :active_storage if options[:s3_storage] 
         build :mobile_workflow_generator, ARGV[1]
         setup_db
-        generate_administrate
+        build :administrate_generator
         
         generate_dot_env
         initial_git_commit
@@ -57,23 +57,6 @@ module MobileWorkflow::Cli
     # Todo: MBS - move these methods to the builder class
     # Ideally override RailsBuilder methods
     private
-    def generate_administrate
-      generate 'administrate:install'
-      file 'app/assets/config/manifest.js', <<-CODE
-//= link administrate/application.css
-//= link administrate/application.js
-    CODE
-  
-      file 'app/controllers/admin/application_controller.rb', <<-CODE
-module Admin
-  class ApplicationController < Administrate::ApplicationController
-    http_basic_authenticate_with(name: ENV["ADMIN_USER"], password: ENV["ADMIN_PASSWORD"])
-  end
-end
-CODE
-      generate 'administrate:routes'
-    end
-
     def setup_db
       rails_command "db:drop"
       rails_command "db:create"

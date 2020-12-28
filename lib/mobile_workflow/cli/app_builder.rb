@@ -16,6 +16,23 @@ module MobileWorkflow::Cli
     def rspec_generator
       generate 'rspec:install'
     end
+
+    def administrate_generator
+      rails_command 'generate administrate:install'
+      file 'app/assets/config/manifest.js', <<-CODE
+//= link administrate/application.css
+//= link administrate/application.js
+    CODE
+  
+      file 'app/controllers/admin/application_controller.rb', <<-CODE
+module Admin
+  class ApplicationController < Administrate::ApplicationController
+    http_basic_authenticate_with(name: ENV["ADMIN_USER"], password: ENV["ADMIN_PASSWORD"])
+  end
+end
+CODE
+      generate 'administrate:routes'      
+    end
     
     def ability_generator
       copy_file 'ability.rb', 'app/models/ability.rb'
