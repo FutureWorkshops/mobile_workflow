@@ -9,6 +9,7 @@ module MobileWorkflow::Cli
     class_option :skip_test, type: :boolean, default: true, desc: "Skip Test Unit"
     class_option :force, type: :boolean, default: true, desc: "Force overwrite"
     class_option :skip_webpack_install, type: :boolean, default: true, desc: "Skip webpacker installation"
+    class_option :skip_bootsnap, type: :boolean, default: true, desc: "Skip Bootsnap"
     
     class_option :version, type: :boolean, aliases: "-v", desc: "Show version number and quit"
     class_option :help, type: :boolean, aliases: '-h', desc: "Show this help message and quit"
@@ -30,7 +31,6 @@ module MobileWorkflow::Cli
     def finish_template
       super
       after_bundle do
-        run "spring stop"
         build :procfiles
         build :rspec_generator
         build :ability_generator
