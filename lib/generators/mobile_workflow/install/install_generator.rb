@@ -11,6 +11,7 @@ module MobileWorkflow
 
       class_option :open_api_spec_path, type: :string, default: "config/open_api_spec.json"
       class_option :doorkeeper_oauth, type: :boolean, default: false
+      class_option :interactive, type: :boolean, default: false
 
       def create_api_controller
         template("api_controller.rb.erb", "app/controllers/api_controller.rb")
@@ -84,9 +85,13 @@ module MobileWorkflow
         options[:open_api_spec_path]
       end
       
+      def interactive?
+        options[:interactive]
+      end
+      
       def model_properties(name, schema)
         generated_properties_args = schema["properties"].keys.collect{|key| "#{key}:#{model_property_type(schema["properties"][key])}" }.join(" ")
-        if yes?("Use generated schema #{name}(#{generated_properties_args})[yn]?")
+        if !interactive? || yes?("Use generated schema #{name}(#{generated_properties_args})[yn]?")
           generated_properties_args
         else
           ask "Specify schema for #{name}: (e.g. text:string image:attachment region:reference)"
