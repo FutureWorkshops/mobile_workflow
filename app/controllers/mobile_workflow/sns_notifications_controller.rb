@@ -1,5 +1,5 @@
 module MobileWorkflow
-  class SnsNotificationsController < ApiController
+  class SnsNotificationsController < ActionController::API
     if Object.const_defined?("Aws::S3") && Object.const_defined?("Aws::SNS")
       before_action :verify_request_authenticity
  
