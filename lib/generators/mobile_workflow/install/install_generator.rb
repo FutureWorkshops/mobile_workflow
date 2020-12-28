@@ -59,7 +59,7 @@ module MobileWorkflow
       end
       
       def generate_seeds
-        template("seeds.rb.erb", "db/seeds.rb")
+        template("seeds.rb.erb", "db/seeds.rb", force: true)
       end
 
       private
