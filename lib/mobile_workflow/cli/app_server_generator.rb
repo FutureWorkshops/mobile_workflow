@@ -58,9 +58,9 @@ module MobileWorkflow::Cli
     # Ideally override RailsBuilder methods
     private
     def setup_db
-      rails_command "db:drop"
-      rails_command "db:create"
-      rails_command "db:migrate"
+      system "DATABASE_URL='' rails db:drop"
+      system "DATABASE_URL='' rails db:create"
+      system "DATABASE_URL='' rails db:migrate"
     end
 
     def initial_git_commit
