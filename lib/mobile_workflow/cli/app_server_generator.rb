@@ -51,16 +51,18 @@ module MobileWorkflow::Cli
     protected
 
     def get_builder_class
-      AppBuilder
+      ::MobileWorkflow::Cli::AppBuilder
     end
     
     # Todo: MBS - move these methods to the builder class
     # Ideally override RailsBuilder methods
     private
     def setup_db
-      system "DATABASE_URL='' rails db:drop"
-      system "DATABASE_URL='' rails db:create"
-      system "DATABASE_URL='' rails db:migrate"
+      Bundler.with_unbundled_env do 
+        rails_command("db:drop")
+        rails_command("db:create")
+        rails_command("db:migrate")
+      end
     end
 
     def initial_git_commit

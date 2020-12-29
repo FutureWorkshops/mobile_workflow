@@ -18,9 +18,8 @@ module MobileWorkflow::Cli
     end
 
     def administrate_generator
-      Bundler.with_clean_env { generate 'administrate:install' }
+      Bundler.with_unbundled_env { generate 'administrate:install' }
       
-      #rails_command 'generate administrate:install'
       file 'app/assets/config/manifest.js', <<-CODE
 //= link administrate/application.css
 //= link administrate/application.js
@@ -34,7 +33,7 @@ module Admin
 end
 CODE
 
-      Bundler.with_clean_env { generate 'administrate:routes' }
+      Bundler.with_unbundled_env { generate 'administrate:routes' }
     end
     
     def ability_generator
