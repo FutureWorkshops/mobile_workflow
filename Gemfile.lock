@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mobile_workflow (0.5.4)
+    mobile_workflow (0.5.5)
       rails (>= 6.1.0)
 
 GEM
