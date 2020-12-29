@@ -51,7 +51,7 @@ module MobileWorkflow::Cli
     protected
 
     def get_builder_class
-      MobileWorkflow::Cli::AppBuilder
+      AppBuilder
     end
     
     # Todo: MBS - move these methods to the builder class
