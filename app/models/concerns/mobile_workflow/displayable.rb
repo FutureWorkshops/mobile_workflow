@@ -16,8 +16,8 @@ module MobileWorkflow
       {type: :text, label: label, text: text.to_s}.compact
     end
   
-    def mw_display_image(attachment)
-      {type: :image, previewURL: preview_url(attachment, height: 600, width: 1200), url: attachment_url(attachment)}
+    def mw_display_image(attachment, options: { resize_to_fill: [600, 1200] })
+      {type: :image, previewURL: preview_url(attachment, options: options), url: attachment_url(attachment)}
     end
     
     def mw_display_unsplash_image(image_url)
@@ -29,8 +29,8 @@ module MobileWorkflow
       {type: :image, previewURL: image_url, url: image_url}
     end
     
-    def mw_display_video(attachment)
-      {type: :video, previewURL: preview_url(attachment, height: 600, width: 1200), url: attachment_url(attachment)}
+    def mw_display_video(attachment, preview_options: { resize_to_fill: [600, 1200] })
+      {type: :video, previewURL: preview_url(attachment, options: preview_options), url: attachment_url(attachment)}
     end
   
     def mw_display_button(label:, style: :primary, on_success: :forward)
@@ -69,8 +69,8 @@ module MobileWorkflow
     def validate_button_style!(style)
       raise 'Unknown style' unless BUTTON_STYLES.include?(style)      
     end
-  
-    def preview_url(attachment, height:, width:, options: { resize_to_fill: [height, width]} )
+    
+    def preview_url(attachment, options:)
       return nil unless attachment.attached?
 
       if attachment.image?
