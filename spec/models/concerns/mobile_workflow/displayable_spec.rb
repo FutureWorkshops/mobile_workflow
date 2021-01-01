@@ -22,4 +22,14 @@ describe MobileWorkflow::Displayable do
       it { expect(result[:onSuccess]).to eq :forward }
     end
   end
+  
+  describe '#mw_display_text' do
+    context 'text' do
+      let(:result) { subject.mw_display_text(label: 'City', text: 'London') }
+
+      it { expect(result[:type]).to eq :text }      
+      it { expect(result[:label]).to eq 'City' }      
+      it { expect(result[:text]).to eq 'London' }
+    end
+  end
 end

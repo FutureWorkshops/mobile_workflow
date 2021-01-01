@@ -8,7 +8,7 @@ module MobileWorkflow
       
     def mw_list_item(id: self.id, text:, detail_text: nil, sf_symbol_name: nil, image_attachment: nil)
       mw_list_item = {id: id, text: text, detailText: detail_text, sfSymbolName: sf_symbol_name}
-      mw_list_item[:imageURL] = preview_url(image_attachment, height: 100, width: 100) if image_attachment
+      mw_list_item[:imageURL] = preview_url(image_attachment, options: { resize_to_fill: [100, 100] }) if image_attachment
       mw_list_item.compact   
     end
   
