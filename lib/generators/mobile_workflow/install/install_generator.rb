@@ -32,6 +32,11 @@ module MobileWorkflow
         template("user.rb.erb", "app/models/user.rb")
         template("sessions_controller.rb.erb", "app/controllers/sessions_controller.rb")
         route "resources :sessions, only: [:new, :create]"
+        
+        # View related for login screen
+        copy_file("views/layout/application.html.erb")
+        copy_file("views/sessions/new.html.erb")
+        copy_file("helpers/application_helper.rb")
       end
       
       def generate_models
