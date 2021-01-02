@@ -6,10 +6,19 @@ require 'json'
 RSpec.describe <%= controller_class_name %>Controller do
   let(:params) { {} }
   let(:json_response) { JSON.parse(response.body, symbolize_names: true) }
+  <% if doorkeeper_oauth? -%>
+  let(:user) { create(:user) }
+  let(:token) { instance_double('Doorkeeper::AccessToken', :accessible? => true, :acceptable? => true, resource_owner_id: user.id) }
+  <% end -%>
   
   describe 'GET #index' do
     let!(:<%= controller_class_name.singularize.underscore %>) { create(:<%= controller_class_name.singularize.underscore %>) }
-    before(:each) { get :index, params: params }
+    before(:each) do
+      <% if doorkeeper_oauth? -%>
+      allow(subject).to receive(:doorkeeper_token) { token }
+      <% end -%>
+	    get :index, params: params
+	  end
     
     context 'ok' do
       it { expect(json_response[0][:id]).to eq <%= controller_class_name.singularize.underscore %>.id }               
@@ -20,7 +29,12 @@ RSpec.describe <%= controller_class_name %>Controller do
   describe 'GET #show' do
     let(:<%= controller_class_name.singularize.underscore %>) { create(:<%= controller_class_name.singularize.underscore %>) }
     let(:params) { { id: <%= controller_class_name.singularize.underscore %>.id } }
-    before(:each) { get :show, params: params }
+    before(:each) do
+      <% if doorkeeper_oauth? -%>
+      allow(subject).to receive(:doorkeeper_token) { token }
+      <% end -%>
+	    get :show, params: params
+	  end
     
     context 'ok' do                
       it { expect(response.status).to eq 200 }
@@ -30,7 +44,12 @@ RSpec.describe <%= controller_class_name %>Controller do
   describe 'POST #create' do
     let(:payload_params) { {text: 'OK'} }
     let(:params) { { payload: payload_params, binaries: [{identifier: 'record', mimetype: 'video/mp4'}] } }
-    before(:each) { post :create, params: params }
+    before(:each) do
+      <% if doorkeeper_oauth? -%>
+      allow(subject).to receive(:doorkeeper_token) { token }
+      <% end -%>
+	    post :create, params: params
+	  end
     
     context 'ok' do
       it { expect(<%= controller_class_name.singularize %>.count).to eq 1 }          

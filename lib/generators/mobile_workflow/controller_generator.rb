@@ -8,13 +8,18 @@ module MobileWorkflow
       
       class_option :attributes, type: :array, default: [], banner: "field:type field:type"
       class_option :actions, type: :array, default: [], banner: "index create update destroy"
+      class_option :doorkeeper_oauth, type: :boolean, default: false
       
       def copy_controller_and_spec_files
         template "controller.rb.erb", File.join("app/controllers", controller_class_path, "#{controller_file_name}_controller.rb")
         template "controller_spec.rb.erb", File.join("spec/controllers", controller_class_path, "#{controller_file_name}_controller_spec.rb")
       end
       
-      private  
+      private
+      def doorkeeper_oauth?
+        options[:doorkeeper_oauth]
+      end
+      
       def attributes_names
         options[:attributes].map{ |attribute| attribute.split(":").first }
       end
