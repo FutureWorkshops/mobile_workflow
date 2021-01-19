@@ -34,7 +34,7 @@ module MobileWorkflow
         route "resources :sessions, only: [:new, :create]"
         
         # View related for login screen
-        copy_file("views/layout/application.html.erb")
+        copy_file("views/layouts/application.html.erb")
         copy_file("views/sessions/new.html.erb")
         copy_file("helpers/application_helper.rb")
       end
