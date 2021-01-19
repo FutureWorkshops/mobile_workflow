@@ -53,9 +53,9 @@ module MobileWorkflow::Cli
     def destroy
       aws_command "aws s3api delete-bucket --bucket #{@aws_name} --region #{@region}"
     
-      aws_command("aws sns list-topics")["Topics"].each do |topic|
+      aws_command("aws sns list-topics --region #{@region}")["Topics"].each do |topic|
         topic_arn = topic["TopicArn"]
-        aws_command "aws sns delete-topic --topic-arn '#{topic_arn}'" if topic_arn.end_with?(@aws_name)
+        aws_command "aws sns delete-topic --topic-arn '#{topic_arn}' --region #{@region}" if topic_arn.end_with?(@aws_name)
       end
     
       aws_command "aws iam delete-user-policy --user-name #{@aws_name} --policy-name s3"
