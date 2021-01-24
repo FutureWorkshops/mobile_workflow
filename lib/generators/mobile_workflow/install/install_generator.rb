@@ -77,7 +77,7 @@ module MobileWorkflow
       private
       
       def generate_model(model_name, model_properties)
-        generate(:model, "#{model_name} #{model_properties}")
+        generate("mobile_workflow:model #{model_name} #{model_properties}")
       end
       
       def model_name_to_properties

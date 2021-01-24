@@ -17,7 +17,10 @@ class <%= class_name %> < <%= parent_class_name.classify %>
   end
   
   def display_as_json
-    [mw_display_text(label: 'ID', text: id.to_s)]
+    [
+      mw_display_text(label: 'ID', text: id.to_s),
+      mw_display_text(label: 'Text', text: text)
+    ]
   end
 
 end
