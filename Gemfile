@@ -13,3 +13,6 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
+
+# FFI for Mac Mini M1
+gem 'ffi', github: 'ffi/ffi'

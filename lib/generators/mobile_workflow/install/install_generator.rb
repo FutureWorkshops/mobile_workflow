@@ -1,4 +1,5 @@
 require "rails/generators/base"
+require "mobile_workflow/open_api_spec/parser"
 
 module MobileWorkflow
   module Generators
@@ -44,18 +45,26 @@ module MobileWorkflow
             model_properties = ask "Specify schema for #{model_name}: (e.g. text:string image:attachment region:reference)"
           end
 
-          generate(:model, "#{model_name} #{model_properties}")
+          generate_model(model_name, model_properties)
           @model_name_to_properties[model_name] = model_properties
         end
       end
 
       def generate_controllers_and_routes
         say "Generating controllers"
-        route "root to: 'admin/#{controller_names.first}#index'"
+        route "root to: 'admin/#{open_api_spec.controller_names.first}#index'"
         
         open_api_spec.controller_names.each do |plural_controller_name|
           controller_name = plural_controller_name.singularize
           model_properties = model_name_to_properties[controller_name]
+          
+          unless model_properties
+            # Generate a model because it probably wasnt present in the schema
+            # And set default attributes
+            model_properties = "text:string"
+            generate_model(controller_name, model_properties)
+          end
+          
           generate "mobile_workflow:controller #{controller_name} --attributes #{model_properties}"
           route "resources :#{plural_controller_name}, only: [:index, :show, :create]"
         end
@@ -67,12 +76,16 @@ module MobileWorkflow
 
       private
       
+      def generate_model(model_name, model_properties)
+        generate(:model, "#{model_name} #{model_properties}")
+      end
+      
       def model_name_to_properties
         @model_name_to_properties ||= open_api_spec.model_name_to_properties
       end
       
       def open_api_spec
-        @open_api_spec ||= MobileWorkflow::OpenApiSpec::Parser.new(File.read(open_api_spec_path))
+        @open_api_spec ||= ::MobileWorkflow::OpenApiSpec::Parser.new(File.read(open_api_spec_path))
       end
       
       def open_api_spec_path
