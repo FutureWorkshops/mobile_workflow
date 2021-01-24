@@ -12,6 +12,7 @@ require "generator_spec"
 
 require_relative '../lib/generators/mobile_workflow/install/install_generator'
 require_relative '../lib/generators/mobile_workflow/controller_generator'
+require_relative '../lib/mobile_workflow/cli'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
