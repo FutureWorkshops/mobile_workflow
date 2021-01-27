@@ -9,6 +9,7 @@ module MobileWorkflow
       class_option :attributes, type: :array, default: [], banner: "field:type field:type"
       class_option :actions, type: :array, default: [], banner: "index create update destroy"
       class_option :doorkeeper_oauth, type: :boolean, default: false
+      class_option :s3_storage, type: :boolean, default: false
       
       def copy_controller_and_spec_files
         template "controller.rb.erb", File.join("app/controllers", controller_class_path, "#{controller_file_name}_controller.rb")

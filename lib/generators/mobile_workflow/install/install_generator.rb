@@ -9,6 +9,7 @@ module MobileWorkflow
 
       class_option :open_api_spec_path, type: :string, default: "config/open_api_spec.json"
       class_option :doorkeeper_oauth, type: :boolean, default: false
+      class_option :s3_storage, type: :boolean, default: false
       class_option :interactive, type: :boolean, default: false
 
       def create_api_controller
@@ -65,7 +66,7 @@ module MobileWorkflow
             generate_model(controller_name, model_properties)
           end
           
-          generate "mobile_workflow:controller #{controller_name} --attributes #{model_properties}"
+          generate "mobile_workflow:controller #{controller_name} --attributes #{model_properties} #{s3_storage? ? '--s3-storage' : ''}".strip
           route "resources :#{plural_controller_name}, only: [:index, :show, :create]"
         end
       end
@@ -86,6 +87,10 @@ module MobileWorkflow
       
       def open_api_spec
         @open_api_spec ||= ::MobileWorkflow::OpenApiSpec::Parser.new(File.read(open_api_spec_path))
+      end
+      
+      def s3_storage?
+        options[:s3_storage]
       end
       
       def open_api_spec_path
