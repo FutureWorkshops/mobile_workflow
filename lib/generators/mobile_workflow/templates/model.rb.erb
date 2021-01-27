@@ -13,13 +13,13 @@ class <%= class_name %> < <%= parent_class_name.classify %>
 <% end -%>
 
   def list_item_as_json
-    mw_list_item(text: text)
+    mw_list_item(text: <%= attributes.first.name %>)
   end
   
   def display_as_json
     [
       mw_display_text(label: 'ID', text: id.to_s),
-      mw_display_text(label: 'Text', text: text)
+      mw_display_text(label: 'Text', text: <%= attributes.first.name %>)
     ]
   end
 

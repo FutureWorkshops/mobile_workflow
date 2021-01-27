@@ -19,7 +19,7 @@ class <%= controller_class_name %>Controller < ApiController
       render json: { binary_urls: binary_urls(@<%= singular_table_name %>), response: @<%= singular_table_name %> }, status: :created
       <% else -%>
       render json: { response: @<%= singular_table_name %> }, status: :created      
-      <% end %>
+      <% end -%>
     else
       head :unprocessable_entity 
     end
