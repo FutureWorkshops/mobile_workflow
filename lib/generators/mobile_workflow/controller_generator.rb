@@ -21,6 +21,10 @@ module MobileWorkflow
         options[:doorkeeper_oauth]
       end
       
+      def s3_storage?
+        options[:s3_storage]
+      end
+      
       def attributes_names
         options[:attributes].map{ |attribute| attribute.split(":").first }
       end

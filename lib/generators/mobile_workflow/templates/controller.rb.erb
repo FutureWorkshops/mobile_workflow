@@ -1,6 +1,6 @@
 <% module_namespacing do -%>
 class <%= controller_class_name %>Controller < ApiController
-  # include MobileWorkflow::S3Storable
+  <%= s3_storage? ? "include MobileWorkflow::S3Storable" : "" %>
   before_action :rewrite_payload, only: :create
 
   load_and_authorize_resource
@@ -15,7 +15,11 @@ class <%= controller_class_name %>Controller < ApiController
 
   def create
     if @<%= singular_table_name %>.save
+      <% if s3_storage? -%>
       render json: { binary_urls: binary_urls(@<%= singular_table_name %>), response: @<%= singular_table_name %> }, status: :created
+      <% else -%>
+      render json: { response: @<%= singular_table_name %> }, status: :created      
+      <% end %>
     else
       head :unprocessable_entity 
     end
