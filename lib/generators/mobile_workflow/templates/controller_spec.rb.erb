@@ -54,7 +54,9 @@ RSpec.describe <%= controller_class_name %>Controller do
     context 'ok' do
       it { expect(<%= controller_class_name.singularize %>.count).to eq 1 }          
       it { expect(response.status).to eq 201 }
+      <% if s3_storage? -%>
       it { expect(json_response[:binary_urls]).to_not be_nil }
+      <% end %>
     end
   end
 end
