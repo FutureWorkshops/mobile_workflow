@@ -33,6 +33,7 @@ module MobileWorkflow::Cli
       after_bundle do
         build :procfiles
         build :rspec_generator
+        build :factory_bot
         build :ability_generator
         build :active_storage if options[:s3_storage] 
         build :mobile_workflow_generator, ARGV[1]

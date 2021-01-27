@@ -16,6 +16,12 @@ module MobileWorkflow::Cli
     def rspec_generator
       generate 'rspec:install'
     end
+    
+    def factory_bot
+      inject_into_file 'spec/rails_helper.rb', before: "end\n" do
+        "config.include FactoryBot::Syntax::Methods"
+      end
+    end
 
     def administrate_generator
       Bundler.with_unbundled_env { generate 'administrate:install' }
