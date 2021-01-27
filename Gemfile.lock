@@ -7,7 +7,7 @@ GIT
 PATH
   remote: .
   specs:
-    mobile_workflow (0.6.3)
+    mobile_workflow (0.6.4)
       rails (>= 6.1.0)
 
 GEM
