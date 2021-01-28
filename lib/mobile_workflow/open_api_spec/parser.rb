@@ -21,9 +21,9 @@ module MobileWorkflow
         end
         @model_properties
       end
-  
-      def controller_names
-        @controller_names ||= paths.collect{|url_path| url_path.split('/')[1] }.uniq
+      
+      def controller_name_to_actions
+        @controller_name_to_actions ||= parse_controller_names_to_actions
       end
   
       def paths
@@ -35,6 +35,22 @@ module MobileWorkflow
       end
   
       private
+      def parse_controller_names_to_actions
+        controllers = {}
+        paths.each do |path|
+          path_items = path.split('/')
+          controller_name = path_items[1]
+          controllers[controller_name] = [] unless controllers.key?(controller_name)
+          
+          open_api_spec[:paths][path].keys.each do |method|
+            controllers[controller_name] << 'create' if path_items.count == 2 && method == 'post'
+            controllers[controller_name] << 'index' if path_items.count == 2 && method == 'get'
+            controllers[controller_name] << 'show' if path_items.count == 3 && method == 'get'                        
+          end
+        end
+        controllers
+      end
+      
       def open_api_spec
         @open_api_spec ||= read_openapi_spec
       end

@@ -53,9 +53,10 @@ module MobileWorkflow
 
       def generate_controllers_and_routes
         say "Generating controllers"
-        route "root to: 'admin/#{open_api_spec.controller_names.first}#index'"
+        controller_name_to_actions = open_api_spec.controller_name_to_actions
+        route "root to: 'admin/#{controller_name_to_actions.keys.first}#index'"
         
-        open_api_spec.controller_names.each do |plural_controller_name|
+        controller_name_to_actions.each_pair do |plural_controller_name, actions|
           controller_name = plural_controller_name.singularize
           model_properties = model_name_to_properties[controller_name]
           
@@ -66,8 +67,8 @@ module MobileWorkflow
             generate_model(controller_name, model_properties)
           end
           
-          generate "mobile_workflow:controller #{controller_name} --attributes #{model_properties} #{s3_storage? ? '--s3-storage' : ''}".strip
-          route "resources :#{plural_controller_name}, only: [:index, :show, :create]"
+          generate "mobile_workflow:controller #{controller_name} #{actions.join(" ")} --attributes #{model_properties} #{s3_storage? ? '--s3-storage' : ''}".strip
+          route "resources :#{plural_controller_name}, only: [#{actions.map{|a| ":#{a}"}.join(", ")}]"
         end
       end
       

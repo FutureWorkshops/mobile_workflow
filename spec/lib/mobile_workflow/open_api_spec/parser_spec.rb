@@ -11,10 +11,22 @@ module MobileWorkflow
         it { expect(subject.send(:model_property_type, {'$ref' => "#/components/schemas/attachment"})).to eq 'attachment' }
       end
       
-      describe '#controller_names' do
-        context 'index, show paths' do
-          before(:each) { allow(subject).to receive(:paths) {["/items", "/items/{item_id}"]} }
-          it { expect(subject.send(:controller_names)).to eq ["items"]}
+      describe '#controller_name_to_actions' do
+        before(:each) { allow(subject).to receive(:open_api_spec) { open_api_spec.with_indifferent_access } }    
+
+        context 'index' do
+          let(:open_api_spec) { {paths: {'/appointments': {'get': {}}}} }
+          it { expect(subject.controller_name_to_actions).to eq({"appointments" => ['index']}) }
+        end
+        
+        context 'show' do
+          let(:open_api_spec) { {paths: {'/appointments/{appointment_id}': {'get': {}}}} }
+          it { expect(subject.controller_name_to_actions).to eq({"appointments" => ['show']}) }
+        end
+        
+        context 'create' do
+          let(:open_api_spec) { {paths: {'/appointments': {'post': {}}}} }
+          it { expect(subject.controller_name_to_actions).to eq({"appointments" => ['create']}) }
         end
       end
     end

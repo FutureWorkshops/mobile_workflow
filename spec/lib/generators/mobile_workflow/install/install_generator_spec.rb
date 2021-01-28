@@ -5,7 +5,7 @@ module MobileWorkflow
     describe InstallGenerator, type: :generator do
       
       describe '#generate_controllers_and_routes' do
-        let(:open_api_spec_mock) { instance_double(::MobileWorkflow::OpenApiSpec::Parser, controller_names: [controller_name]) }
+        let(:open_api_spec_mock) { instance_double(::MobileWorkflow::OpenApiSpec::Parser, controller_name_to_actions: controller_name_to_actions) }
         let(:model_generate) { nil }
         let(:s3_storage) { false }
         
@@ -20,22 +20,33 @@ module MobileWorkflow
         end
         
         context 'no properties' do
-          let(:controller_name) { 'Cities' }
+          let(:controller_name_to_actions) { {'Cities' => ['index']} }
           let(:model_name_to_properties) { {} }
-          let(:controller_route) { "resources :Cities, only: [:index, :show, :create]" } 
+          let(:controller_route) { "resources :Cities, only: [:index]" } 
           let(:root_route) { "root to: 'admin/Cities#index'" }
           let(:model_generate) { "mobile_workflow:model City text:string" }
-          let(:controller_generate) { "mobile_workflow:controller City --attributes text:string" }
+          let(:controller_generate) { "mobile_workflow:controller City index --attributes text:string" }
+          
+          it { expect(subject.generate_controllers_and_routes).to_not be_nil }
+        end
+        
+        context 'no properties, index and show' do
+          let(:controller_name_to_actions) { {'Cities' => ['index', 'show']} }
+          let(:model_name_to_properties) { {} }
+          let(:controller_route) { "resources :Cities, only: [:index, :show]" } 
+          let(:root_route) { "root to: 'admin/Cities#index'" }
+          let(:model_generate) { "mobile_workflow:model City text:string" }
+          let(:controller_generate) { "mobile_workflow:controller City index show --attributes text:string" }
           
           it { expect(subject.generate_controllers_and_routes).to_not be_nil }
         end
         
         context 'two properties' do
-          let(:controller_name) { 'Cities' }
+          let(:controller_name_to_actions) { {'Cities' => ['index']} }
           let(:model_name_to_properties) { {'City' => 'name:string population:integer' } }
-          let(:controller_route) { "resources :Cities, only: [:index, :show, :create]" } 
+          let(:controller_route) { "resources :Cities, only: [:index]" } 
           let(:root_route) { "root to: 'admin/Cities#index'" }
-          let(:controller_generate) { "mobile_workflow:controller City --attributes name:string population:integer" }
+          let(:controller_generate) { "mobile_workflow:controller City index --attributes name:string population:integer" }
           
           it { expect(subject.generate_controllers_and_routes).to_not be_nil }
         end
@@ -43,11 +54,11 @@ module MobileWorkflow
         context 's3 storage' do
           let(:s3_storage) { true }
           
-          let(:controller_name) { 'Cities' }
+          let(:controller_name_to_actions) { {'Cities' => ['index']} }
           let(:model_name_to_properties) { {'City' => 'name:string population:integer' } }
-          let(:controller_route) { "resources :Cities, only: [:index, :show, :create]" } 
+          let(:controller_route) { "resources :Cities, only: [:index]" } 
           let(:root_route) { "root to: 'admin/Cities#index'" }
-          let(:controller_generate) { "mobile_workflow:controller City --attributes name:string population:integer --s3-storage" }
+          let(:controller_generate) { "mobile_workflow:controller City index --attributes name:string population:integer --s3-storage" }
           
           it { expect(subject.generate_controllers_and_routes).to_not be_nil }
         end
