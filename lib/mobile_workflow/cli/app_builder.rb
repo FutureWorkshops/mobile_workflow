@@ -65,6 +65,10 @@ CODE
       generate "mobile_workflow:install #{gen_opts}"
     end
     
+    def format_source
+      run 'rufo .'
+    end
+    
     def s3_backend(region)
       @region = region
       aws_backend.create

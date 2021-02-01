@@ -39,6 +39,7 @@ module MobileWorkflow::Cli
         build :mobile_workflow_generator, ARGV[1]
         build :migrate_db
         build :administrate_generator
+        build :format_source
         
         generate_dot_env
         initial_git_commit
