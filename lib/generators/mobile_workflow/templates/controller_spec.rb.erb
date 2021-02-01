@@ -10,7 +10,8 @@ RSpec.describe <%= controller_class_name %>Controller do
   let(:user) { create(:user) }
   let(:token) { instance_double('Doorkeeper::AccessToken', :accessible? => true, :acceptable? => true, resource_owner_id: user.id) }
   <% end -%>
-  
+
+<% if index_action? -%>  
   describe 'GET #index' do
     let!(:<%= controller_class_name.singularize.underscore %>) { create(:<%= controller_class_name.singularize.underscore %>) }
     before(:each) do
@@ -25,7 +26,8 @@ RSpec.describe <%= controller_class_name %>Controller do
       it { expect(response.status).to eq 200 }
     end
   end
-  
+<% end -%>
+<% if show_action? -%>
   describe 'GET #show' do
     let(:<%= controller_class_name.singularize.underscore %>) { create(:<%= controller_class_name.singularize.underscore %>) }
     let(:params) { { id: <%= controller_class_name.singularize.underscore %>.id } }
@@ -40,7 +42,9 @@ RSpec.describe <%= controller_class_name %>Controller do
       it { expect(response.status).to eq 200 }
     end
   end
-  
+
+<% end -%>
+<% if create_action? -%>
   describe 'POST #create' do
     let(:payload_params) { {text: 'OK'} }
     let(:params) { { payload: payload_params, binaries: [{identifier: 'record', mimetype: 'video/mp4'}] } }
@@ -59,4 +63,5 @@ RSpec.describe <%= controller_class_name %>Controller do
       <% end %>
     end
   end
+<% end -%>
 end

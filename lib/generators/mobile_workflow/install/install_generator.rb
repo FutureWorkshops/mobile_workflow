@@ -41,13 +41,19 @@ module MobileWorkflow
       def generate_models
         say "Loading OpenAPI Spec: #{open_api_spec_path}"
         say "Generating models"
-        model_name_to_properties.each_pair do |model_name, model_properties|          
+        model_name_to_properties.each_pair do |model_name, model_properties|   
+          
+          if doorkeeper_oauth?
+            model_properties = "#{model_properties} user:reference"
+            @model_name_to_properties[model_name] = model_properties
+          end
+                 
           if interactive? && !yes?("Use generated schema #{model_name}(#{model_properties})[yn]?")
             model_properties = ask "Specify schema for #{model_name}: (e.g. text:string image:attachment region:reference)"
+            @model_name_to_properties[model_name] = model_properties
           end
 
           generate_model(model_name, model_properties)
-          @model_name_to_properties[model_name] = model_properties
         end
       end
 
@@ -67,7 +73,7 @@ module MobileWorkflow
             generate_model(controller_name, model_properties)
           end
           
-          generate "mobile_workflow:controller #{controller_name} #{actions.join(" ")} --attributes #{model_properties} #{s3_storage? ? '--s3-storage' : ''}".strip
+          generate "mobile_workflow:controller #{controller_name} --actions #{actions.join(" ")} --attributes #{model_properties} #{s3_storage? ? '--s3-storage' : ''}".strip
           route "resources :#{plural_controller_name}, only: [#{actions.map{|a| ":#{a}"}.join(", ")}]"
         end
       end
@@ -88,6 +94,10 @@ module MobileWorkflow
       
       def open_api_spec
         @open_api_spec ||= ::MobileWorkflow::OpenApiSpec::Parser.new(File.read(open_api_spec_path))
+      end
+
+      def doorkeeper_oauth?
+        options[:doorkeeper_oauth]
       end
       
       def s3_storage?

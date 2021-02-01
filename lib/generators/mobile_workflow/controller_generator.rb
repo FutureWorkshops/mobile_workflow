@@ -33,6 +33,22 @@ module MobileWorkflow
         params = attributes_names.map{ |name| ":#{name}" }
         params.join(", ")
       end
+      
+      def index_action?
+        actions.include?("index")
+      end
+      
+      def show_action?
+        actions.include?("show")
+      end
+      
+      def create_action?
+        actions.include?("create")
+      end
+      
+      def actions
+        options[:actions]
+      end
     end
   end
 end

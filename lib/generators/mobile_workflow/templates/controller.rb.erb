@@ -4,15 +4,20 @@ class <%= controller_class_name %>Controller < ApiController
   before_action :rewrite_payload, only: :create
 
   load_and_authorize_resource
-
+  
+<% if index_action? -%>
   def index
     render json: @<%= plural_table_name %>.collect(&:list_item_as_json)
   end
-
+  
+<% end -%>
+<% if show_action? -%>
   def show
     render json: @<%= singular_table_name %>.display_as_json
   end
-
+  
+<% end -%>
+<% if create_action? -%>
   def create
     if @<%= singular_table_name %>.save
       <% if s3_storage? -%>
@@ -39,5 +44,6 @@ class <%= controller_class_name %>Controller < ApiController
   def <%= singular_table_name.underscore %>_params
     params.require(:payload).permit(<%= permitted_params %>)
   end
+<% end -%>
 end
 <% end %>
