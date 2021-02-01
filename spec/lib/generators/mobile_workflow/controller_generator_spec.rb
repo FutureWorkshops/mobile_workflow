@@ -7,8 +7,15 @@ module MobileWorkflow
       subject { described_class.new(['mobile_workflow:controller']) }
 
       describe '#permitted_params' do
-        before(:each) { allow(subject).to receive(:attributes_names) { ["name", "age"] } }
-        it { expect(subject.send(:permitted_params)).to eq ":name, :age" }
+        context 'two' do
+          before(:each) { allow(subject).to receive(:attributes_names) { ["name", "age"] } }
+          it { expect(subject.send(:permitted_params)).to eq ":name, :age" }          
+        end
+
+        context 'user' do
+          before(:each) { allow(subject).to receive(:attributes_names) { ["name", "age", "user"] } }
+          it { expect(subject.send(:permitted_params)).to eq ":name, :age" }          
+        end
       end
 
       # this is generating files

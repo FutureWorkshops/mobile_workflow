@@ -30,8 +30,9 @@ module MobileWorkflow
       end
           
       def permitted_params
-        params = attributes_names.map{ |name| ":#{name}" }
-        params.join(", ")
+        permitted_attributes = attributes_names.dup
+        permitted_attributes.delete('user')
+        permitted_attributes.map{ |name| ":#{name}" }.join(", ")
       end
       
       def index_action?
