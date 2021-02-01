@@ -18,8 +18,8 @@ module MobileWorkflow::Cli
     end
     
     def factory_bot
-      inject_into_file 'spec/rails_helper.rb', before: "end\n" do
-        "config.include FactoryBot::Syntax::Methods"
+      inject_into_file 'spec/rails_helper.rb', after: "RSpec.configure do |config|\n" do
+        "\tconfig.include FactoryBot::Syntax::Methods\n"
       end
     end
     
