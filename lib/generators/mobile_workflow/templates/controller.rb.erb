@@ -19,6 +19,9 @@ class <%= controller_class_name %>Controller < ApiController
 <% end -%>
 <% if create_action? -%>
   def create
+    <% if doorkeeper_oauth? -%>
+    @<%= singular_table_name %> = current_user
+    <% end -%>
     if @<%= singular_table_name %>.save
       <% if s3_storage? -%>
       render json: { binary_urls: binary_urls(@<%= singular_table_name %>), response: @<%= singular_table_name %> }, status: :created
