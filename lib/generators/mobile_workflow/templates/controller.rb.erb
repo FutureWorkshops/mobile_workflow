@@ -20,7 +20,7 @@ class <%= controller_class_name %>Controller < ApiController
 <% if create_action? -%>
   def create
     <% if doorkeeper_oauth? -%>
-    @<%= singular_table_name %> = current_user
+    @<%= singular_table_name %>.user = current_user
     <% end -%>
     if @<%= singular_table_name %>.save
       <% if s3_storage? -%>
