@@ -44,7 +44,7 @@ module MobileWorkflow
         model_name_to_properties.each_pair do |model_name, model_properties|   
           
           if doorkeeper_oauth?
-            model_properties = "#{model_properties} user:reference"
+            model_properties = "#{model_properties} user:references"
             @model_name_to_properties[model_name] = model_properties
           end
                  
