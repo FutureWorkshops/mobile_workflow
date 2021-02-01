@@ -80,7 +80,7 @@ module MobileWorkflow
             generate_model(controller_name, model_properties)
           end
           
-          generate "mobile_workflow:controller #{controller_name} --actions #{actions.join(" ")} --attributes #{model_properties} #{s3_storage? ? '--s3-storage' : ''}".strip
+          generate "mobile_workflow:controller #{controller_name} --actions #{actions.join(" ")} --attributes #{model_properties} #{generate_controller_args}".strip
           route "resources :#{plural_controller_name}, only: [#{actions.map{|a| ":#{a}"}.join(", ")}]"
         end
       end
@@ -93,6 +93,13 @@ module MobileWorkflow
       
       def generate_model(model_name, model_properties)
         generate("mobile_workflow:model #{model_name} #{model_properties}")
+      end
+      
+      def generate_controller_args
+        args = ''
+        args += ' --s3-storage' if s3_storage?
+        args += ' --doorkeeper-oauth' if doorkeeper_oauth?
+        args.strip
       end
       
       def model_name_to_properties
