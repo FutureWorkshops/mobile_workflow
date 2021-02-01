@@ -57,9 +57,6 @@ CODE
       gen_opts = ""
       gen_opts += "--doorkeeper_oauth" if options[:doorkeeper_oauth]
       generate "mobile_workflow:install #{gen_opts}"
-      
-      # Copy user migrations if needed
-      rails_command 'mobile_workflow:install:migrations' if options[:doorkeeper_oauth]
     end
     
     def s3_backend(region)

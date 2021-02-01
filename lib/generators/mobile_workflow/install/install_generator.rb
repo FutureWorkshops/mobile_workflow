@@ -1,9 +1,13 @@
 require "rails/generators/base"
+require "rails/generators/active_model"
+require "rails/generators/active_record/migration"
+require "active_record"
 require "mobile_workflow/open_api_spec/parser"
 
 module MobileWorkflow
   module Generators
     class InstallGenerator < Rails::Generators::Base
+      include ActiveRecord::Generators::Migration
       
       source_root File.expand_path("../templates", __FILE__)
 
@@ -23,6 +27,8 @@ module MobileWorkflow
       def generate_doorkeeper
         return unless options[:doorkeeper_oauth]
         say "Generating Doorkeeper OAuth"
+        
+        migration_template "create_users.rb", "db/migrate/create_users.rb"
         
         generate 'doorkeeper:install'
         gsub_file 'config/initializers/doorkeeper.rb', 'raise "Please configure doorkeeper resource_owner_authenticator block located in #{__FILE__}"', 'User.find_by_id(session[:user_id]) || redirect_to(new_session_url(return_to: request.fullpath))'
