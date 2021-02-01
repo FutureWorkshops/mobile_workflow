@@ -82,6 +82,7 @@ CODE
       heroku_backend.create
       heroku_backend.configure_activestorage if options[:s3_storage]
       heroku_backend.deploy
+      heroku_backend.seed_db
       heroku_backend.sync_dotenv
     end
     

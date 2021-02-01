@@ -21,6 +21,10 @@ module MobileWorkflow::Cli
     def deploy
       heroku_command "git push"
     end
+    
+    def seed_db
+      heroku_command "heroku run rails db:seed"
+    end
   
     def sync_dotenv
       env = File.read(".env").split.join(" ")
