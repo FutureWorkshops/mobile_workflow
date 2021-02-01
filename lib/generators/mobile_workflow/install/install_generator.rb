@@ -42,6 +42,7 @@ module MobileWorkflow
         copy_file("app/views/layouts/application.html.erb")
         copy_file("app/views/sessions/new.html.erb")
         copy_file("app/helpers/application_helper.rb")
+        copy_file("spec/factories/users.rb")
       end
       
       def generate_models
