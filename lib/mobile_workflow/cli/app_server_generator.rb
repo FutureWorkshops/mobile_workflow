@@ -37,7 +37,7 @@ module MobileWorkflow::Cli
         build :ability_generator
         build :active_storage if options[:s3_storage] 
         build :mobile_workflow_generator, ARGV[1]
-        setup_db
+        build :migrate_db
         build :administrate_generator
         
         generate_dot_env
@@ -58,14 +58,6 @@ module MobileWorkflow::Cli
     # Todo: MBS - move these methods to the builder class
     # Ideally override RailsBuilder methods
     private
-    def setup_db
-      Bundler.with_unbundled_env do 
-        rails_command("db:drop")
-        rails_command("db:create")
-        rails_command("db:migrate")
-      end
-    end
-
     def initial_git_commit
       git add: "."
       git commit: %Q{ -m 'Initial commit' }

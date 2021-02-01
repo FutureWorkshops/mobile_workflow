@@ -22,9 +22,15 @@ module MobileWorkflow::Cli
         "config.include FactoryBot::Syntax::Methods"
       end
     end
+    
+    def migrate_db 
+      rails_command("db:drop")
+      rails_command("db:create")
+      rails_command("db:migrate")
+    end
 
     def administrate_generator
-      Bundler.with_unbundled_env { generate 'administrate:install' }
+      generate 'administrate:install'
       
       file 'app/assets/config/manifest.js', <<-CODE
 //= link administrate/application.css
@@ -39,7 +45,7 @@ module Admin
 end
 CODE
 
-      Bundler.with_unbundled_env { generate 'administrate:routes' }
+      generate 'administrate:routes'
     end
     
     def ability_generator
