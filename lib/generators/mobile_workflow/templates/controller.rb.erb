@@ -29,7 +29,7 @@ class <%= controller_class_name %>Controller < ApiController
       render json: { response: @<%= singular_table_name %> }, status: :created      
       <% end -%>
     else
-      head :unprocessable_entity 
+      render json: { message: @<%= singular_table_name %>.errors.full_messages.to_sentence }, status: :unprocessable_entity
     end
   end
 
