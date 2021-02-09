@@ -40,10 +40,8 @@ module MobileWorkflow::Cli
         build :migrate_db
         build :administrate_generator
         build :format_source
-        
-        generate_dot_env
-        initial_git_commit
-        
+        build :generate_dot_env
+        build :git_commit
         build :heroku if options[:heroku]
         build :dokku, options[:dokku_host] if options[:dokku]
         build :s3_backend, options[:aws_region] if options[:s3_storage]
@@ -56,22 +54,5 @@ module MobileWorkflow::Cli
       ::MobileWorkflow::Cli::AppBuilder
     end
     
-    # Todo: MBS - move these methods to the builder class
-    # Ideally override RailsBuilder methods
-    private
-    def initial_git_commit
-      git add: "."
-      git commit: %Q{ -m 'Initial commit' }
-    end
-
-    def generate_dot_env
-      admin_user = 'admin'
-      admin_password = SecureRandom.base64(12)
-      
-      file '.env', <<-CODE
-ADMIN_USER=#{admin_user}
-ADMIN_PASSWORD=#{admin_password}
-CODE
-    end
   end
 end

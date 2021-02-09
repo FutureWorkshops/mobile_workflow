@@ -69,6 +69,21 @@ CODE
       run 'rufo .'
     end
     
+    def generate_dot_env
+      admin_user = 'admin'
+      admin_password = SecureRandom.base64(12)
+      
+      file '.env', <<-CODE
+ADMIN_USER=#{admin_user}
+ADMIN_PASSWORD=#{admin_password}
+CODE
+    end
+    
+    def git_commit(message = 'Initial commit')
+      git add: "."
+      git commit: %Q{ -m '#{message}'}
+    end
+    
     def s3_backend(region)
       @region = region
       aws_backend.create
