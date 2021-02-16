@@ -66,7 +66,7 @@ CODE
     end
     
     def format_source
-      run 'rufo .'
+      `rufo .`
     end
     
     def generate_dot_env
