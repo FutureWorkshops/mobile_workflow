@@ -4,12 +4,16 @@ module MobileWorkflow
     include Rails.application.routes.url_helpers
     
     ON_SUCCESS_OPTIONS = [:none, :reload, :backward, :forward]
-    BUTTON_STYLES = [:primary, :outline, :danger]
-      
+    BUTTON_STYLES = [:primary, :outline, :danger]  
+    
     def mw_list_item(id: self.id, text:, detail_text: nil, sf_symbol_name: nil, image_attachment: nil)
       mw_list_item = {id: id, text: text, detailText: detail_text, sfSymbolName: sf_symbol_name}
       mw_list_item[:imageURL] = preview_url(image_attachment, options: { resize_to_fill: [100, 100] }) if image_attachment
-      mw_list_item.compact   
+      mw_list_item.compact
+    end
+    
+    def mw_map_item(id: self.id, text:, detail_text: nil, latitude:, longitude:)
+      {id: id, text: text, detailText: detail_text, latitude: latitude, longitude: longitude}.compact
     end
   
     def mw_display_text(text:, label: nil)
