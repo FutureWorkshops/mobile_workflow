@@ -24,6 +24,10 @@ module MobileWorkflow
         route "mount MobileWorkflow::Engine => '/'"
       end
       
+      def copy_rake_tasks
+        copy_file("lib/tasks/mobile_workflow_doorkeeper.rake") if options[:doorkeeper_oauth]
+      end
+      
       def generate_doorkeeper
         return unless options[:doorkeeper_oauth]
         say "Generating Doorkeeper OAuth"
