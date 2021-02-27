@@ -8,7 +8,7 @@ RSpec.describe <%= controller_class_name %>Controller do
   let(:json_response) { JSON.parse(response.body, symbolize_names: true) }
   <% if doorkeeper_oauth? -%>
   let(:user) { create(:user) }
-  let(:token) { instance_double('Doorkeeper::AccessToken', :accessible? => true, :acceptable? => true, resource_owner_id: user.id) }
+  let(:token) { instance_double(Doorkeeper::AccessToken, accessible?: true, acceptable?: true, resource_owner_id: user.id) }
   <% end -%>
 
 <% if index_action? -%>  
