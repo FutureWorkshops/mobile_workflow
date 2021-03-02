@@ -5,7 +5,7 @@ module MobileWorkflow::Cli
   
     attr_accessor :access_id, :secret_key, :region, :bucket_name
   
-    def initialize(app_name:, region:)
+    def initialize(app_name:, region: 'us-east-1')
       @app_name = app_name
       @aws_name = @app_name.gsub("_", "-")
       @region = region
