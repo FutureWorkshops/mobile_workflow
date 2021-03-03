@@ -46,10 +46,9 @@ describe MobileWorkflow::Displayable do
   end
   
   describe '#mw_display_button_for_system_url' do
-    let(:result) { subject.mw_display_button_for_system_url(label: 'Call', apple_system_url: 'call://00447888888887', android_system_url: 'call://00447888888888') }
+    let(:result) { subject.mw_display_button_for_system_url(label: 'Call', apple_system_url: 'call://00447888888887') }
 
     it { expect(result[:type]).to eq :button }      
     it { expect(result[:appleSystemURL]).to eq 'call://00447888888887' }      
-    it { expect(result[:androidSystemURL]).to eq 'call://00447888888888' }
   end
 end
