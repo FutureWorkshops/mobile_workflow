@@ -45,6 +45,20 @@ describe MobileWorkflow::Displayable do
     end
   end
   
+  describe '#mw_display_image' do
+    context 'text' do
+      let(:result) { subject.mw_display_image(label: 'City') }
+      
+      before(:each) do 
+        allow(subject).to receive(:preview_url) { nil }
+        allow(subject).to receive(:attachment_url) { nil }
+      end
+
+      it { expect(result[:type]).to eq :image }      
+      it { expect(result[:contentMode]).to eq 'scaleAspectFill' }      
+    end
+  end
+  
   describe '#mw_display_button_for_system_url' do
     let(:result) { subject.mw_display_button_for_system_url(label: 'Call', apple_system_url: 'call://00447888888887') }
 

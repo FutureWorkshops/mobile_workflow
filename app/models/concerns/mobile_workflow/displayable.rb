@@ -5,6 +5,7 @@ module MobileWorkflow
     
     ON_SUCCESS_OPTIONS = [:none, :reload, :backward, :forward]
     BUTTON_STYLES = [:primary, :outline, :danger]  
+    CONTENT_MODE_OPTIONS = [:scale_aspect_fill, :scale_aspect_fit]  
     
     def mw_list_item(id: self.id, text:, detail_text: nil, sf_symbol_name: nil, image_attachment: nil)
       mw_list_item = {id: id, text: text, detailText: detail_text, sfSymbolName: sf_symbol_name}
@@ -20,8 +21,10 @@ module MobileWorkflow
       {type: :text, label: label, text: text.to_s}.compact
     end
   
-    def mw_display_image(attachment, options: { resize_to_fill: [600, 1200] })
-      {type: :image, previewURL: preview_url(attachment, options: options), url: attachment_url(attachment)}
+    def mw_display_image(attachment, content_mode: :scale_aspect_fill, options: { resize_to_fill: [600, 1200] })
+      validate_content_mode!(content_mode)
+      
+      {type: :image, contentMode: content_mode.to_s.camelize(:lower), previewURL: preview_url(attachment, options: options), url: attachment_url(attachment)}
     end
     
     def mw_display_unsplash_image(image_url)
@@ -75,6 +78,10 @@ module MobileWorkflow
     private
     def validate_on_success!(on_success)
       raise 'Unknown on_success action' unless ON_SUCCESS_OPTIONS.include?(on_success)
+    end
+    
+    def validate_content_mode!(on_success)
+      raise 'Unknown content_mode' unless CONTENT_MODE_OPTIONS.include?(on_success)
     end
     
     def validate_button_style!(style)
