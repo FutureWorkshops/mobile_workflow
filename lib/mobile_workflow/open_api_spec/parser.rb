@@ -2,9 +2,6 @@ module MobileWorkflow
   module OpenApiSpec
     class Parser
   
-      # Schemas to avoid generating models for (static items from MW)
-      SKIP_SCHEMAS = ["attachment", "ListItem", "DisplayItem", "DisplayText", "DisplayButton", "DisplayImage", "DisplayVideo"]
-  
       def initialize(open_api_spec_string)
         @open_api_spec_string = open_api_spec_string
       end
@@ -12,7 +9,7 @@ module MobileWorkflow
       def model_name_to_properties
         @model_properties = {}
         schemas.each_pair do |model_name, schema|
-          next if SKIP_SCHEMAS.include? model_name # Don't generate schemas for MW schemas
+          next if model_name.start_with?("MW")
     
           model_name = model_name.underscore
           model_properties = schema_model_properties(model_name, schema)
