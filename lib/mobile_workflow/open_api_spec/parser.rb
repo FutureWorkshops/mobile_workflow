@@ -60,7 +60,7 @@ module MobileWorkflow
         return property["type"] unless property["type"].blank?
         return 'attachment' if property['$ref'] == "#/components/schemas/attachment"
     
-        raise 'Unknown property type'
+        raise "Unknown property type: #{property}"
       end
   
       def read_openapi_spec
