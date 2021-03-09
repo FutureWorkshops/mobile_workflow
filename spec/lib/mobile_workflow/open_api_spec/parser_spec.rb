@@ -8,7 +8,7 @@ module MobileWorkflow
 
       describe '#model_property_type' do
         it { expect(subject.send(:model_property_type, {'type' => "string"})).to eq 'string' }
-        it { expect(subject.send(:model_property_type, {'$ref' => "#/components/schemas/attachment"})).to eq 'attachment' }
+        it { expect(subject.send(:model_property_type, {'$ref' => "#/components/schemas/MWAttachment"})).to eq 'attachment' }
       end
       
       describe '#controller_name_to_actions' do
