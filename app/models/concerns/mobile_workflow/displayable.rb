@@ -65,11 +65,11 @@ module MobileWorkflow
       {type: :button, label: label, url: url, method: method, style: style, onSuccess: on_success}
     end
     
-    def mw_display_button_for_system_url(label:, apple_system_url:, method: :put, style: :primary, on_success: :none)
-      validate_on_success!(on_success)
+    def mw_display_button_for_system_url(label:, apple_system_url: nil, android_deep_link: nil, style: :primary)
       validate_button_style!(style)
+      raise 'Invalid android_deep_link' unless android_deep_link.start_with?('http')
       
-      {type: :button, label: label, appleSystemURL: apple_system_url, method: method, style: style, onSuccess: on_success}
+      {type: :button, label: label, appleSystemURL: apple_system_url, androidDeepLink: android_deep_link, style: style}.compact
     end
     
     def mw_display_button_for_modal_workflow(label:, modal_workflow_name:, style: :primary, on_success: :none)

@@ -65,9 +65,21 @@ describe MobileWorkflow::Displayable do
   end
   
   describe '#mw_display_button_for_system_url' do
-    let(:result) { subject.mw_display_button_for_system_url(label: 'Call', apple_system_url: 'call://00447888888887') }
+    
+    context 'apple only' do
+      let(:result) { subject.mw_display_button_for_system_url(label: 'Call', apple_system_url: 'call://00447888888887', android_deep_link: 'https://maps.google.com') }
 
-    it { expect(result[:type]).to eq :button }      
-    it { expect(result[:appleSystemURL]).to eq 'call://00447888888887' }      
+      it { expect(result[:type]).to eq :button }      
+      it { expect(result[:appleSystemURL]).to eq 'call://00447888888887' }          
+    end
+    
+    context 'maps' do
+      let(:result) { subject.mw_display_button_for_system_url(label: 'Call', apple_system_url: 'https://maps.google.com', android_deep_link: 'https://maps.google.com') }
+
+      it { expect(result[:type]).to eq :button }      
+      it { expect(result[:appleSystemURL]).to eq 'https://maps.google.com' }   
+      it { expect(result[:androidDeepLink]).to eq 'https://maps.google.com' }                 
+    end
+  
   end
 end
