@@ -10,17 +10,27 @@ module MobileWorkflow
         when 'SubscriptionConfirmation'
           confirm_subscription ? (head :ok) : (head :bad_request)
         else
+          add_attachment
+        end
+      end
+ 
+      private
+      def add_attachment
+        begin
           @object = find_object
           @object.send("#{attribute_name}=",active_record_blob)
           if @object.save
             head :ok
           else
             Rails.logger.warn "Error saving object: #{@object} #{object.errors.full_messages}"
+            head :unprocessable_entity
           end
+        rescue NameError => e
+          Rails.logger.warn "Error attaching object: #{e.message}"
+          head :unprocessable_entity
         end
       end
- 
-      private 
+       
       def verify_request_authenticity
         head :unauthorized if raw_post.blank?
     
