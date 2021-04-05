@@ -65,10 +65,10 @@ describe MobileWorkflow::Displayable do
     end
   end
 
-  describe '#mw_display_button_for_url' do
+  describe '#mw_display_url_button' do
     
     context 'confirmTitle / confirmText' do
-      let(:result) { subject.mw_display_button_for_url(label: 'Approve', url: 'https://example.com/1/approve', confirm_title: 'Approve?', confirm_text: 'Are you sure?') }
+      let(:result) { subject.mw_display_url_button(label: 'Approve', url: 'https://example.com/1/approve', confirm_title: 'Approve?', confirm_text: 'Are you sure?') }
       
       it { expect(result[:label]).to eq 'Approve' }
       it { expect(result[:url]).to eq 'https://example.com/1/approve' }
@@ -78,10 +78,10 @@ describe MobileWorkflow::Displayable do
   
   end
   
-  describe '#mw_display_button_for_system_url' do
+  describe '#mw_display_system_url_button' do
     
     context 'apple only' do
-      let(:result) { subject.mw_display_button_for_system_url(label: 'Call', apple_system_url: 'call://00447888888887', android_deep_link: 'https://maps.google.com') }
+      let(:result) { subject.mw_display_system_url_button(label: 'Call', apple_system_url: 'call://00447888888887', android_deep_link: 'https://maps.google.com') }
 
       it { expect(result[:type]).to eq :button }      
       it { expect(result[:appleSystemURL]).to eq 'call://00447888888887' }          
