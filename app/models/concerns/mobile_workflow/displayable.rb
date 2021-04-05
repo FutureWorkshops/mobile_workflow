@@ -37,7 +37,7 @@ module MobileWorkflow
         image_url = "https://source.unsplash.com/#{unsplash_id}/800x600"
       end
       
-      {type: :image, previewURL: image_url, url: image_url}
+      {type: :image, previewURL: image_url, url: image_url}.compact
     end
     
     def mw_display_video(attachment, preview_options: { resize_to_fill: [600, 1200] })
@@ -48,21 +48,21 @@ module MobileWorkflow
       validate_on_success!(on_success)
       validate_button_style!(style)
       
-      {type: :button, label: label, style: style, onSuccess: on_success}
+      {type: :button, label: label, style: style, onSuccess: on_success}.compact
     end
   
     def mw_display_delete_button(url:, label: "Delete", method: :delete, style: :danger, on_success: :backward)
       validate_on_success!(on_success)
       validate_button_style!(style)
       
-      {type: :button, label: label, url: url, method: method, style: style, onSuccess: on_success}
+      {type: :button, label: label, url: url, method: method, style: style, onSuccess: on_success}.compact
     end
     
-    def mw_display_button_for_url(label:, url:, method: :put, style: :primary, on_success: :reload)
+    def mw_display_button_for_url(label:, url:, method: :put, style: :primary, confirm_title: nil, confirm_text: nil, on_success: :reload)
       validate_on_success!(on_success)
       validate_button_style!(style)
       
-      {type: :button, label: label, url: url, method: method, style: style, onSuccess: on_success}
+      {type: :button, label: label, url: url, method: method, style: style, confirmTitle: confirm_title, confirmText: confirm_text, onSuccess: on_success}.compact
     end
     
     def mw_display_button_for_system_url(label:, apple_system_url: nil, android_deep_link: nil, style: :primary)
@@ -76,7 +76,7 @@ module MobileWorkflow
       validate_on_success!(on_success)
       validate_button_style!(style)
       
-      {type: :button, label: label, modalWorkflow: modal_workflow_name, style: style, onSuccess: on_success}
+      {type: :button, label: label, modalWorkflow: modal_workflow_name, style: style, onSuccess: on_success}.compact
     end
   
     private

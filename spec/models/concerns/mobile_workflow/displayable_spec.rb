@@ -38,6 +38,7 @@ describe MobileWorkflow::Displayable do
       it { expect(result[:label]).to eq 'Approve' }
       it { expect(result[:onSuccess]).to eq :forward }
     end
+  
   end
   
   describe '#mw_display_text' do
@@ -62,6 +63,19 @@ describe MobileWorkflow::Displayable do
       it { expect(result[:type]).to eq :image }      
       it { expect(result[:contentMode]).to eq 'scaleAspectFill' }      
     end
+  end
+
+  describe '#mw_display_button_for_url' do
+    
+    context 'confirmTitle / confirmText' do
+      let(:result) { subject.mw_display_button_for_url(label: 'Approve', url: 'https://example.com/1/approve', confirm_title: 'Approve?', confirm_text: 'Are you sure?') }
+      
+      it { expect(result[:label]).to eq 'Approve' }
+      it { expect(result[:url]).to eq 'https://example.com/1/approve' }
+      it { expect(result[:confirmTitle]).to eq 'Approve?' }
+      it { expect(result[:confirmText]).to eq 'Are you sure?' }
+    end
+  
   end
   
   describe '#mw_display_button_for_system_url' do
