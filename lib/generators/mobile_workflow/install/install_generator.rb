@@ -52,6 +52,9 @@ module MobileWorkflow
       def generate_models
         say "Loading OpenAPI Spec: #{open_api_spec_path}"
         say "Generating models"
+        
+        copy_file("app/models/application_record.rb")
+        
         model_name_to_properties.each_pair do |model_name, model_properties|   
           
           if doorkeeper_oauth?
