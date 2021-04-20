@@ -79,7 +79,6 @@ describe MobileWorkflow::Displayable do
   end
   
   describe '#mw_display_system_url_button' do
-    
     context 'apple only' do
       let(:result) { subject.mw_display_system_url_button(label: 'Call', apple_system_url: 'call://00447888888887', android_deep_link: 'https://maps.google.com') }
 
@@ -94,6 +93,20 @@ describe MobileWorkflow::Displayable do
       it { expect(result[:appleSystemURL]).to eq 'https://maps.google.com' }   
       it { expect(result[:androidDeepLink]).to eq 'https://maps.google.com' }                 
     end
+  end
   
+  describe '#mw_text_choice_question' do
+    let(:result) { subject.mw_text_choice_question(question: question, style: style, text_choices: text_choices) }
+
+    context 'ok' do
+      let(:question) { 'Expense type?' }
+      let(:style) { :single_choice }
+      let(:text_choices) { {"Business" => 0, "Personal" => 1} }
+
+      it { expect(result[:question]).to eq 'Expense type?' }      
+      it { expect(result[:answerFormat][:style]).to eq 'singleChoice' } 
+      it { expect(result[:answerFormat][:textChoices].count).to eq 2 }      
+         
+    end
   end
 end

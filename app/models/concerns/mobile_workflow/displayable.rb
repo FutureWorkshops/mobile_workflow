@@ -5,7 +5,8 @@ module MobileWorkflow
     
     ON_SUCCESS_OPTIONS = [:none, :reload, :backward, :forward]
     BUTTON_STYLES = [:primary, :outline, :danger]  
-    CONTENT_MODE_OPTIONS = [:scale_aspect_fill, :scale_aspect_fit]  
+    CONTENT_MODE_OPTIONS = [:scale_aspect_fill, :scale_aspect_fit] 
+    QUESTION_STYLES = [:single_choice, :multiple_choice] 
     
     def mw_list_item(id: self.id, text:, detail_text: nil, sf_symbol_name: nil, image_attachment: nil)
       mw_list_item = {id: id, text: text, detailText: detail_text, sfSymbolName: sf_symbol_name}
@@ -81,6 +82,15 @@ module MobileWorkflow
       {type: :button, label: label, modalWorkflow: modal_workflow_name, style: style, onSuccess: on_success}.compact
     end
     alias_method :mw_display_button_for_modal_workflow, :mw_display_modal_workflow_button
+    
+    def mw_text_choice_question(question:, style:, text_choices:)
+      raise 'Missing question' if question.blank?
+      raise 'Text Choices should be a hash' unless text_choices.is_a?(Hash)
+      validate_question_style!(style)
+      
+      text_choices_a = text_choices.map{|k, v| {_class: "ORKTextChoice", exclusive: false, text: k, value: v} }.to_a
+      { question: question, answerFormat: { _class: "ORKTextChoiceAnswerFormat", style: style.to_s.camelize(:lower), textChoices: text_choices_a}}
+    end
   
     private
     def validate_on_success!(on_success)
@@ -93,6 +103,10 @@ module MobileWorkflow
     
     def validate_button_style!(style)
       raise 'Unknown style' unless BUTTON_STYLES.include?(style)      
+    end
+    
+    def validate_question_style!(style)
+      raise 'Unknown style' unless QUESTION_STYLES.include?(style)      
     end
     
     def preview_url(attachment, options:)
