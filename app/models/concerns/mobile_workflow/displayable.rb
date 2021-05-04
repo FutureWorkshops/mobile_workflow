@@ -106,7 +106,7 @@ module MobileWorkflow
       { id: id, text: text, type: :smallSection }
     end
     
-    def mw_grid_item(id:, text:, image_attachment: nil)
+    def mw_grid_item(id: self.id, text:, image_attachment: nil)
       raise 'Missing id' if id.nil?
       raise 'Missing text' if text.nil?
       
