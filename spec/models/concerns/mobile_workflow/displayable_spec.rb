@@ -109,4 +109,34 @@ describe MobileWorkflow::Displayable do
          
     end
   end
+  
+  describe '#mw_grid_large_section' do
+    let(:result) { subject.mw_grid_large_section(id: 0, text: 'Mountains') }
+
+    context 'ok' do
+      it { expect(result[:id]).to eq 0 }      
+      it { expect(result[:text]).to eq 'Mountains' } 
+      it { expect(result[:type]).to eq :largeSection } 
+    end
+  end
+  
+  describe '#mw_grid_small_section' do
+    let(:result) { subject.mw_grid_small_section(id: 0, text: 'Mountains') }
+
+    context 'ok' do
+      it { expect(result[:id]).to eq 0 }      
+      it { expect(result[:text]).to eq 'Mountains' } 
+      it { expect(result[:type]).to eq :smallSection } 
+    end
+  end
+  
+  describe '#mw_grid_item' do
+    let(:result) { subject.mw_grid_item(id: 0, text: 'Mountains') }
+
+    context 'ok' do
+      it { expect(result[:id]).to eq 0 }      
+      it { expect(result[:text]).to eq 'Mountains' } 
+      it { expect(result[:type]).to eq :item } 
+    end
+  end
 end

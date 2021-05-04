@@ -91,6 +91,29 @@ module MobileWorkflow
       text_choices_a = text_choices.map{|k, v| {_class: "ORKTextChoice", exclusive: false, text: k, value: v} }.to_a
       { question: question, answerFormat: { _class: "ORKTextChoiceAnswerFormat", style: style.to_s.camelize(:lower), textChoices: text_choices_a}}
     end
+    
+    def mw_grid_large_section(id:, text:)
+      raise 'Missing id' if id.nil?
+      raise 'Missing text' if text.nil?
+      
+      { id: id, text: text, type: :largeSection }
+    end
+    
+    def mw_grid_small_section(id:, text:)
+      raise 'Missing id' if id.nil?
+      raise 'Missing text' if text.nil?
+      
+      { id: id, text: text, type: :smallSection }
+    end
+    
+    def mw_grid_item(id:, text:, image_attachment: nil)
+      raise 'Missing id' if id.nil?
+      raise 'Missing text' if text.nil?
+      
+      item = { id: id, text: text, type: :item }
+      item[:imageURL] = preview_url(image_attachment, options: { resize_to_fill: [600, 600] }) if image_attachment
+      item
+    end
   
     private
     def validate_on_success!(on_success)
