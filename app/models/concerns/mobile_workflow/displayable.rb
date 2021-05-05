@@ -45,41 +45,41 @@ module MobileWorkflow
       {type: :video, previewURL: preview_url(attachment, options: preview_options), url: attachment_url(attachment)}
     end
   
-    def mw_display_button(label:, style: :primary, on_success: :forward)
+    def mw_display_button(label:, style: :primary, on_success: :forward, sf_symbol_name: nil, material_icon_name: nil)
       validate_on_success!(on_success)
       validate_button_style!(style)
       
-      {type: :button, label: label, style: style, onSuccess: on_success}.compact
+      {type: :button, label: label, style: style, onSuccess: on_success, sfSymbolName: sf_symbol_name, materialIconName: material_icon_name}.compact
     end
   
     def mw_display_delete_button(url:, label: "Delete", method: :delete, style: :danger, on_success: :backward)
       validate_on_success!(on_success)
       validate_button_style!(style)
       
-      {type: :button, label: label, url: url, method: method, style: style, onSuccess: on_success}.compact
+      {type: :button, label: label, url: url, method: method, style: style, onSuccess: on_success, sfSymbolName: 'trash', materialIconName: 'delete'}.compact
     end
         
-    def mw_display_url_button(label:, url:, method: :put, style: :primary, confirm_title: nil, confirm_text: nil, on_success: :reload)
+    def mw_display_url_button(label:, url:, method: :put, style: :primary, confirm_title: nil, confirm_text: nil, on_success: :reload, sf_symbol_name: nil, material_icon_name: nil)
       validate_on_success!(on_success)
       validate_button_style!(style)
       
-      {type: :button, label: label, url: url, method: method, style: style, confirmTitle: confirm_title, confirmText: confirm_text, onSuccess: on_success}.compact
+      {type: :button, label: label, url: url, method: method, style: style, confirmTitle: confirm_title, confirmText: confirm_text, onSuccess: on_success, sfSymbolName: sf_symbol_name, materialIconName: material_icon_name}.compact
     end
     alias_method :mw_display_button_for_url, :mw_display_url_button
     
-    def mw_display_system_url_button(label:, apple_system_url: nil, android_deep_link: nil, style: :primary)
+    def mw_display_system_url_button(label:, apple_system_url: nil, android_deep_link: nil, style: :primary, sf_symbol_name: nil, material_icon_name: nil)
       validate_button_style!(style)
       raise 'Invalid android_deep_link' unless android_deep_link.start_with?('http')
       
-      {type: :button, label: label, appleSystemURL: apple_system_url, androidDeepLink: android_deep_link, style: style}.compact
+      {type: :button, label: label, appleSystemURL: apple_system_url, androidDeepLink: android_deep_link, style: style, sfSymbolName: sf_symbol_name, materialIconName: material_icon_name}.compact
     end
     alias_method :mw_display_button_for_system_url, :mw_display_system_url_button
     
-    def mw_display_modal_workflow_button(label:, modal_workflow_name:, style: :primary, on_success: :none)
+    def mw_display_modal_workflow_button(label:, modal_workflow_name:, style: :primary, on_success: :none, sf_symbol_name: nil, material_icon_name: nil)
       validate_on_success!(on_success)
       validate_button_style!(style)
       
-      {type: :button, label: label, modalWorkflow: modal_workflow_name, style: style, onSuccess: on_success}.compact
+      {type: :button, label: label, modalWorkflow: modal_workflow_name, style: style, onSuccess: on_success, sfSymbolName: sf_symbol_name, materialIconName: material_icon_name}.compact
     end
     alias_method :mw_display_button_for_modal_workflow, :mw_display_modal_workflow_button
     
