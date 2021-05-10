@@ -19,7 +19,7 @@ module MobileWorkflow
     end
     
     def mw_map_item(id: self.id, text:, detail_text: nil, latitude:, longitude:)
-      {id: id, text: text, detailText: detail_text, latitude: latitude, longitude: longitude}.compact
+      {id: id.to_s, text: text, detailText: detail_text, latitude: latitude, longitude: longitude}.compact
     end
     
     def mw_pie_chart_item(id: self.id, label:, value:)
