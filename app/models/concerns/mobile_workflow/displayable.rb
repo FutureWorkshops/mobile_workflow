@@ -14,6 +14,10 @@ module MobileWorkflow
       mw_list_item.compact
     end
     
+    def mw_list_search_suggestion(id:, text:, section_name:, sf_symbol_name: nil)
+      {id: id, text: text, sectionName: section_name, sfSymbolName: sf_symbol_name}.compact
+    end
+    
     def mw_map_item(id: self.id, text:, detail_text: nil, latitude:, longitude:)
       {id: id, text: text, detailText: detail_text, latitude: latitude, longitude: longitude}.compact
     end

@@ -14,6 +14,16 @@ describe MobileWorkflow::Displayable do
     end
   end
   
+  describe '#mw_list_search_suggestion' do
+    context 'text' do
+      let(:result) { subject.mw_list_search_suggestion(id: '1', text: 'London', section_name: 'City') }
+      
+      it { expect(result[:id]).to eq "1" }
+      it { expect(result[:text]).to eq 'London' }
+      it { expect(result[:sectionName]).to eq 'City' }
+    end
+  end
+  
   describe '#mw_map_item' do
     context 'text' do
       let(:result) { subject.mw_map_item(text: 'London', latitude: 20.1, longitude: 10.1) }
