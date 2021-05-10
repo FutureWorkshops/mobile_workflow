@@ -8,7 +8,7 @@ PATH
   remote: .
   specs:
     mobile_workflow (0.6.28)
-      rails (>= 6.1.0)
+      rails (>= 0.6.28)
 
 GEM
   remote: https://rubygems.org/
@@ -117,11 +117,13 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.1.0)
-    mini_portile2 (2.4.0)
+    mini_portile2 (2.5.1)
     minitest (5.14.2)
     nio4r (2.5.7)
-    nokogiri (1.10.10)
-      mini_portile2 (~> 2.4.0)
+    nokogiri (1.11.3)
+      mini_portile2 (~> 2.5.0)
+      racc (~> 1.4)
+    racc (1.5.2)
     rack (2.2.3)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
