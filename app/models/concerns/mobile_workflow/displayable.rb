@@ -115,7 +115,7 @@ module MobileWorkflow
       raise 'Missing text' if text.nil?
       
       item = { id: id, text: text, type: :item }
-      item[:imageURL] = preview_url(image_attachment, options: { resize_to_fill: [600, 600] }) if image_attachment
+      item[:imageURL] = preview_url(image_attachment, options: { resize_to_fill: [1224, 760] }) if image_attachment
       item
     end
   
