@@ -30,7 +30,7 @@ module MobileWorkflow
       {type: :text, label: label, text: text.to_s}.compact
     end
   
-    def mw_display_image(attachment, content_mode: :scale_aspect_fill, options: { resize_to_fill: [600, 1200] })
+    def mw_display_image(attachment, content_mode: :scale_aspect_fill, options: { resize_to_fill: [1200, 600] })
       validate_content_mode!(content_mode)
       
       {type: :image, contentMode: content_mode.to_s.camelize(:lower), previewURL: preview_url(attachment, options: options), url: attachment_url(attachment)}
