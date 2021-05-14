@@ -10,12 +10,12 @@ module MobileWorkflow
     
     def mw_list_item(id: self.id, text:, detail_text: nil, sf_symbol_name: nil, image_attachment: nil)
       mw_list_item = {id: id, text: text, detailText: detail_text, sfSymbolName: sf_symbol_name}
-      mw_list_item[:imageURL] = preview_url(image_attachment, options: { resize_to_fill: [100, 100] }) if image_attachment
+      mw_list_item[:imageURL] = preview_url(image_attachment, options: { resize_to_fill: [200, 200] }) if image_attachment
       mw_list_item.compact
     end
     
-    def mw_list_search_suggestion(id:, text:, section_name:, sf_symbol_name: nil)
-      {id: id, text: text, sectionName: section_name, sfSymbolName: sf_symbol_name}.compact
+    def mw_list_search_suggestion(id: self.id, text:, section_name:, sf_symbol_name: nil)
+      {id: id.to_s, text: text, sectionName: section_name, sfSymbolName: sf_symbol_name}.compact
     end
     
     def mw_map_item(id: self.id, text:, detail_text: nil, latitude:, longitude:)
