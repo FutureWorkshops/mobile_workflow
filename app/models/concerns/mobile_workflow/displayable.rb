@@ -8,8 +8,8 @@ module MobileWorkflow
     CONTENT_MODE_OPTIONS = [:scale_aspect_fill, :scale_aspect_fit] 
     QUESTION_STYLES = [:single_choice, :multiple_choice] 
     
-    def mw_list_item(id: self.id, text:, detail_text: nil, sf_symbol_name: nil, image_attachment: nil)
-      mw_list_item = {id: id, text: text, detailText: detail_text, sfSymbolName: sf_symbol_name}
+    def mw_list_item(id: self.id, text:, detail_text: nil, sf_symbol_name: nil, material_icon_name: nil, image_attachment: nil)
+      mw_list_item = {id: id, text: text, detailText: detail_text, sfSymbolName: sf_symbol_name, materialIconName: material_icon_name}
       mw_list_item[:imageURL] = preview_url(image_attachment, options: { resize_to_fill: [200, 200] }) if image_attachment
       mw_list_item.compact
     end

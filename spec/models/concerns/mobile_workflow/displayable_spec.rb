@@ -12,6 +12,14 @@ describe MobileWorkflow::Displayable do
       it { expect(result[:id]).to eq 1 }
       it { expect(result[:text]).to eq 'London' }
     end
+    
+    context 'material icon' do
+      let(:result) { subject.mw_list_item(text: 'London', material_icon_name: 'star') }
+      
+      it { expect(result[:id]).to eq 1 }
+      it { expect(result[:text]).to eq 'London' }
+      it { expect(result[:materialIconName]).to eq 'star' }
+    end
   end
   
   describe '#mw_list_search_suggestion' do
