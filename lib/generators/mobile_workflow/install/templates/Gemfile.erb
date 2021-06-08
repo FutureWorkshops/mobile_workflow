@@ -4,13 +4,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '<%= MobileWorkflow::RUBY_VERSION %>'
 
 # Core Gems
-gem 'rails', '~> <%= MobileWorkflow::RAILS_VERSION %>'
+gem 'rails', '<%= MobileWorkflow::RAILS_VERSION %>'
 gem 'puma', '~> 5.0'
 gem 'sass-rails', '>= 6'
 gem 'turbolinks', '~> 5'
 
 # Mobile Workflow
-gem 'mobile_workflow', '~> <%= MobileWorkflow::VERSION %>'
+gem 'mobile_workflow', '<%= MobileWorkflow::VERSION %>'
 
 # Authorisation / Authentication
 <%- if options[:doorkeeper_oauth] %>
