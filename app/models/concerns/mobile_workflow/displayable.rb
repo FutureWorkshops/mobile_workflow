@@ -155,7 +155,7 @@ module MobileWorkflow
     end
 
     def attachment_host
-      "https://#{ENV['HEROKU_APP_NAME']}.herokuapp.com"
+      "https://#{ENV.fetch('HEROKU_APP_NAME')}.herokuapp.com"
     end
   end
 end
