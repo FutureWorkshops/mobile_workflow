@@ -1,3 +1,4 @@
 <%- if options[:doorkeeper_oauth] %>
-Doorkeeper::Application.create! name: 'Main App', redirect_uri: 'mww://callback', scopes: 'public'
+# You can set the OAuth client ID and client secret in your ENV in order to avoid them being reset each time you reset the database.
+Doorkeeper::Application.create! name: 'Main App', redirect_uri: 'mww://callback', scopes: 'public', uid: ENV['OAUTH_CLIENT_ID'], secret: ENV['OAUTH_CLIENT_SECRET']
 <%- end %>
