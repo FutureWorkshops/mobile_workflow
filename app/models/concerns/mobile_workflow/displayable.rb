@@ -73,7 +73,7 @@ module MobileWorkflow
     
     def mw_display_system_url_button(label:, apple_system_url: nil, android_deep_link: nil, style: :primary, sf_symbol_name: nil, material_icon_name: nil)
       validate_button_style!(style)
-      raise 'Invalid android_deep_link' unless android_deep_link.start_with?('http')
+      raise 'Invalid android_deep_link' if android_deep_link && !android_deep_link.start_with?('http')
       
       {type: :button, label: label, appleSystemURL: apple_system_url, androidDeepLink: android_deep_link, style: style, sfSymbolName: sf_symbol_name, materialIconName: material_icon_name}.compact
     end
