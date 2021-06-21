@@ -4,6 +4,11 @@ Short description and motivation.
 ## Usage
 How to use my plugin.
 
+## Uploads Design
+This gem includes an engine to add and process S3 attachments. The design is as follows:
+
+![Uploads Design](https://github.com/FutureWorkshops/mobile_workflow/blob/master/uploads_design.png?raw=true)
+
 ## Installation
 Add this line to your application's Gemfile:
 
