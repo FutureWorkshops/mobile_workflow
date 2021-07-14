@@ -110,7 +110,7 @@ module MobileWorkflow
       { id: id, text: text, type: :smallSection }
     end
     
-    def mw_grid_item(id: self.id, text:, image_attachment: nil, options: { resize_to_fill: [1224, 760] })
+    def mw_grid_item(id: self.id, text:, image_attachment: nil, options: { resize_to_fill: [1560, 877.5] })
       raise 'Missing id' if id.nil?
       raise 'Missing text' if text.nil?
       
