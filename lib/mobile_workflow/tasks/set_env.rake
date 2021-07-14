@@ -44,7 +44,7 @@ def env_set(path)
   File.write(app_json_path, app_json.to_json)  
 end
 
-namespace mw: do
+namespace :mw do
   namespace :set_env do
     desc 'Update Android app.json to use new env'
     task :android do
