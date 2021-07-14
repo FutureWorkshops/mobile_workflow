@@ -44,15 +44,18 @@ def env_set(path)
   File.write(app_json_path, app_json.to_json)  
 end
 
-namespace :env_set do
-  desc 'Update Android app.json to use new env'
-  task :android do
-    env_set(File.join('app', 'src', 'main', 'res', 'raw', 'app.json'))
-  end
+namespace mw: do
+  namespace :set_env do
+    desc 'Update Android app.json to use new env'
+    task :android do
+      env_set(File.join('app', 'src', 'main', 'res', 'raw', 'app.json'))
+    end
   
-  desc 'Update iOS app.json to use new env'
-  task :ios do
-    project_name = ENV["PROJECT_NAME"]
-    env_set(File.join(project_name, project_name, "Resources", "app.json"))
-  end
+    desc 'Update iOS app.json to use new env'
+    task :ios do
+      project_name = ENV["PROJECT_NAME"]
+      env_set(File.join(project_name, project_name, "Resources", "app.json"))
+    end
+  end  
 end
+
