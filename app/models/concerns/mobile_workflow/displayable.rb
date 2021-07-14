@@ -110,12 +110,12 @@ module MobileWorkflow
       { id: id, text: text, type: :smallSection }
     end
     
-    def mw_grid_item(id: self.id, text:, image_attachment: nil)
+    def mw_grid_item(id: self.id, text:, image_attachment: nil, options: { resize_to_fill: [1224, 760] })
       raise 'Missing id' if id.nil?
       raise 'Missing text' if text.nil?
       
       item = { id: id, text: text, type: :item }
-      item[:imageURL] = preview_url(image_attachment, options: { resize_to_fill: [1224, 760] }) if image_attachment
+      item[:imageURL] = preview_url(image_attachment, options: options) if image_attachment
       item
     end
   
