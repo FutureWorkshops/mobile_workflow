@@ -12,7 +12,7 @@ module MobileWorkflow
       
           {
             "identifier" => binary["identifier"],
-            "url" => presigned_url("#{object.class.name.underscore}/#{object.id}/#{object_attribute}.#{extension}"),
+            "url" => presigned_url("#{object.class.name.underscore}/#{object.id}/#{object_attribute}/#{SecureRandom.uuid}.#{extension}"),
             "method" => "PUT"
           }
         end

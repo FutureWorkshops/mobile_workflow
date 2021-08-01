@@ -56,10 +56,6 @@ module MobileWorkflow
       end
   
       def attribute_name
-        file_name.split(".")[0] # remove the extension
-      end
-      
-      def file_name
         key_identifiers[2]
       end
   
@@ -67,13 +63,10 @@ module MobileWorkflow
         object_class_name, object_id, attribute_name = object_key.split("/")
         return object_class_name, object_id, attribute_name
       end
-  
+      
       def object_key
-        @object_key ||= message['Records'][0]['s3']['object']['key']
-      end
-  
-      def message
         message = JSON.parse(message_body['Message'])
+        message['Records'][0]['s3']['object']['key']        
       end
  
       def message_body

@@ -18,4 +18,10 @@ describe MobileWorkflow::SnsNotificationsController do
     
     xit { expect(response).to be_successful }
   end
+  
+  describe '#key_identifiers' do
+    let(:object_key) { 'Expense/1/image/0c17b7a5-1e93-401e-9d96-6439ecc55b35.jpg' }
+    before { allow(subject).to receive(:object_key) { object_key } }
+    it { expect(subject.send(:key_identifiers)).to eq ['Expense', '1', 'image'] }
+  end
 end
