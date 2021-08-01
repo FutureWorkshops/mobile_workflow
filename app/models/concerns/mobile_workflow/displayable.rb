@@ -140,9 +140,9 @@ module MobileWorkflow
       return nil unless attachment.attached?
 
       if attachment.image?
-        Rails.application.routes.url_helpers.rails_representation_url(attachment.variant(options), host: attachment_host)
+        Rails.application.routes.url_helpers.rails_representation_url(attachment.variant(options), host: heroku_attachment_host)
       elsif attachment.previewable?
-        Rails.application.routes.url_helpers.rails_representation_url(attachment.preview(options), host: attachment_host)
+        Rails.application.routes.url_helpers.rails_representation_url(attachment.preview(options), host: heroku_attachment_host)
       else
         return nil
       end
