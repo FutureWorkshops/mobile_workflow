@@ -156,7 +156,7 @@ module MobileWorkflow
 
     def heroku_attachment_host
       # TODO: MBS - move this to a configuration property
-      app_name = Rails.env.test? ? 'test' : ENV.fetch('HEROKU_APP_NAME')
+      app_name = Rails.env.test? ? 'test-app' : ENV.fetch('HEROKU_APP_NAME')
       "https://#{app_name}.herokuapp.com"
     end
   end
