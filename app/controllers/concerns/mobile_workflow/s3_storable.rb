@@ -12,13 +12,17 @@ module MobileWorkflow
       
           {
             "identifier" => binary["identifier"],
-            "url" => presigned_url("#{object.class.name.underscore}/#{object.id}/#{object_attribute}/#{SecureRandom.uuid}.#{extension}"),
+            "url" => presigned_url("#{object.class.name.underscore}/#{object.id}/#{object_attribute}/#{uuid}.#{extension}"),
             "method" => "PUT"
           }
         end
       end
   
       private
+      def uuid
+        SecureRandom.uuid
+      end
+      
       def presigned_url(key)
         presigner.presigned_url(:put_object, bucket: ENV['AWS_BUCKET_NAME'], key: key, metadata: {})
       end
