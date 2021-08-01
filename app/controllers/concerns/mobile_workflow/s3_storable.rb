@@ -12,14 +12,14 @@ module MobileWorkflow
       
           {
             "identifier" => binary["identifier"],
-            "url" => presigned_url("#{object.class.name.underscore}/#{object.id}/#{object_attribute}/#{uuid}.#{extension}"),
+            "url" => presigned_url("#{object.class.name.underscore}/#{object.id}/#{object_attribute}/#{s3_object_uuid}.#{extension}"),
             "method" => "PUT"
           }
         end
       end
   
       private
-      def uuid
+      def s3_object_uuid
         SecureRandom.uuid
       end
       
