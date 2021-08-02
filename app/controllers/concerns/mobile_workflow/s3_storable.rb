@@ -4,16 +4,17 @@ module MobileWorkflow
       extend ActiveSupport::Concern
       
       def binary_urls(object)
-        return unless params["binaries"]
+        return unless params[:binaries]
     
-        params["binaries"].map do |binary|
-          object_attribute = binary["identifier"]
-          extension = binary["mimetype"].split('/')[1] # i.e. image/jpg --> jpg, video/mp4 --> mp4
+        params[:binaries].map do |binary|
+          identifier = binary[:identifier]
+          object_attribute = identifier.split(".")[0] # ensure extension doesnt get added here
+          extension = binary[:mimetype].split('/')[1] # i.e. image/jpg --> jpg, video/mp4 --> mp4
       
           {
-            "identifier" => binary["identifier"],
-            "url" => presigned_url("#{object.class.name.underscore}/#{object.id}/#{object_attribute}/#{s3_object_uuid}.#{extension}"),
-            "method" => "PUT"
+            identifier: identifier,
+            url: presigned_url("#{object.class.name.underscore}/#{object.id}/#{object_attribute}/#{s3_object_uuid}.#{extension}"),
+            method: "PUT"
           }
         end
       end
