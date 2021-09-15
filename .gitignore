@@ -77,3 +77,6 @@ yarn-debug.log*
 !/storage/.keep
 /public/uploads
 /mw-cities
+
+# Ignore Gemfile.lock since it enforces installing specific versions ignoring the semantic versioning
+Gemfile.lock
