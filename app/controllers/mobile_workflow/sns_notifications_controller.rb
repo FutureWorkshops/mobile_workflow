@@ -10,7 +10,7 @@ module MobileWorkflow
         when 'SubscriptionConfirmation'
           confirm_subscription ? (head :ok) : (head :bad_request)
         else
-          AddAttachmentJob.perform_later(object, object_key, attribute_name)
+          AddAttachmentJob.perform_now(object, object_key, attribute_name)
           head :ok
         end
       rescue ActiveRecord::RecordNotFound
