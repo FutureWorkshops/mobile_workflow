@@ -10,10 +10,11 @@ module MobileWorkflow
           identifier = binary[:identifier]
           object_attribute = identifier.split(".")[0] # ensure extension doesnt get added here
           extension = binary[:mimetype].split('/')[1] # i.e. image/jpg --> jpg, video/mp4 --> mp4
-      
+          metadata = binary.slice('md5')
+
           {
             identifier: identifier,
-            url: presigned_url("#{object.class.name.underscore}/#{object.id}/#{object_attribute}/#{s3_object_uuid}.#{extension}"),
+            url: presigned_url("#{object.class.name.underscore}/#{object.id}/#{object_attribute}/#{s3_object_uuid}.#{extension}", metadata: metadata),
             method: "PUT"
           }
         end
@@ -24,8 +25,8 @@ module MobileWorkflow
         SecureRandom.uuid
       end
       
-      def presigned_url(key)
-        presigner.presigned_url(:put_object, bucket: ENV['AWS_BUCKET_NAME'], key: key, metadata: {})
+      def presigned_url(key, metadata: {})
+        presigner.presigned_url(:put_object, bucket: ENV['AWS_BUCKET_NAME'], key: key, metadata: metadata)
       end
   
       def presigner
