@@ -13,15 +13,7 @@ module MobileWorkflow
 
     def active_record_blob
       s3_object = s3_bucket.object(object_key)
-      checksum_base64 = checksum_base64(object_key, s3_object)
-      ActiveStorage::Blob.create! key: s3_object.key, filename: s3_object.key, byte_size: s3_object.size, checksum: checksum_base64, content_type: s3_object.content_type
-    end
-
-    def checksum_base64(object_key, s3_object)
-      path = Tempfile.new(object_key).path
-      s3_object.download_file(path)
-      file = File.new(path)
-      Digest::MD5.file(file).base64digest
+      ActiveStorage::Blob.create! key: s3_object.key, filename: s3_object.key, byte_size: s3_object.size, checksum: s3_object.metadata['md5'], content_type: s3_object.content_type
     end
 
     def s3_bucket

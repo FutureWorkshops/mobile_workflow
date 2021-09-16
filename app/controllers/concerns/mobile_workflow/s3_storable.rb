@@ -10,7 +10,7 @@ module MobileWorkflow
           identifier = binary[:identifier]
           object_attribute = identifier.split(".")[0] # ensure extension doesnt get added here
           extension = binary[:mimetype].split('/')[1] # i.e. image/jpg --> jpg, video/mp4 --> mp4
-          metadata = binary.slice('md5')
+          metadata = binary.slice(:md5)
 
           {
             identifier: identifier,
