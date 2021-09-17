@@ -12,8 +12,10 @@ module MobileWorkflow
     private
 
     def active_record_blob
+      # etag cannot be used as the MD5 checksum when doing multi-part uploads
       s3_object = s3_bucket.object(object_key)
-      ActiveStorage::Blob.create! key: s3_object.key, filename: s3_object.key, byte_size: s3_object.size, checksum: s3_object.metadata['md5'], content_type: s3_object.content_type
+      ActiveStorage::Blob.create! key: s3_object.key, filename: s3_object.key, byte_size: s3_object.size,
+                                  checksum: s3_object.etag.delete('"'), content_type: s3_object.content_type
     end
 
     def s3_bucket
