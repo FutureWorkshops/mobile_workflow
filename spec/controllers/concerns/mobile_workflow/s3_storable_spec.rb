@@ -9,7 +9,7 @@ describe MobileWorkflow::S3Storable do
     let(:object) { double("Object", id: 1, class: double("ObjectClass", name: 'ObjectClass')) }
     let(:params) { {} }
     let(:uuid) { SecureRandom.uuid }
-    let(:metadata) { {} }
+    let(:metadata) { nil }
 
     before(:each) do
       allow(subject).to receive(:s3_object_uuid) { uuid }
@@ -26,7 +26,7 @@ describe MobileWorkflow::S3Storable do
 
     context 'with metadata' do
       let(:metadata) { { md5: 'fc7925ceff85b44276c576a72cd3f811' } }
-      let(:params) { { binaries: [{ identifier: 'image.jpg', mimetype: 'image/jpg', md5: 'fc7925ceff85b44276c576a72cd3f811' }] } }
+      let(:params) { { binaries: [{ identifier: 'image.jpg', mimetype: 'image/jpg', metadata: metadata }] } }
 
       it { expect(subject.binary_urls(object).count).to eq 1 }
       it { expect(subject.binary_urls(object)[0][:identifier]).to eq "image.jpg" }
