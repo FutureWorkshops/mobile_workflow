@@ -10,7 +10,7 @@ module MobileWorkflow
           identifier = binary[:identifier]
           object_attribute = identifier.split(".")[0] # ensure extension doesnt get added here
           extension = binary[:mimetype].split('/')[1] # i.e. image/jpg --> jpg, video/mp4 --> mp4
-          metadata = binary.slice(:md5)
+          metadata = binary[:metadata]
 
           {
             identifier: identifier,
@@ -25,7 +25,7 @@ module MobileWorkflow
         SecureRandom.uuid
       end
       
-      def presigned_url(key, metadata: {})
+      def presigned_url(key, metadata: nil)
         presigner.presigned_url(:put_object, bucket: ENV['AWS_BUCKET_NAME'], key: key, metadata: metadata)
       end
   
@@ -36,7 +36,6 @@ module MobileWorkflow
       def s3_client
         Aws::S3::Client.new(region: ENV['AWS_REGION'], access_key_id: ENV['AWS_ACCESS_ID'], secret_access_key: ENV['AWS_SECRET_KEY'])
       end
-      
     end
   end
 end
