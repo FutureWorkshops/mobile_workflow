@@ -5,7 +5,7 @@ module MobileWorkflow
     def perform(object, object_key, attribute_name)
       object.send("#{attribute_name}=", active_record_blob_from_s3(object_key))
       Rails.logger.warn "Error saving object: #{object} #{object.errors.full_messages}" unless object.save
-    rescue NameError => e
+    rescue NoMethodError => e
       Rails.logger.warn "Error attaching object: #{e.message}"
     end
 
