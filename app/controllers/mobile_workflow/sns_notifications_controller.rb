@@ -13,6 +13,8 @@ module MobileWorkflow
           AddAttachmentJob.perform_now(object, object_key, attribute_name)
           head :ok
         end
+      rescue NameError => e
+        Rails.logger.warn "Error attaching object: #{e.message}"
       rescue ActiveRecord::RecordNotFound
         head :not_found
       end
