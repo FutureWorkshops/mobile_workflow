@@ -28,7 +28,7 @@ describe MobileWorkflow::AddAttachmentJob do
                                                    secret_access_key: 'secret').and_return(s3_client)
     allow(s3_client).to receive(:bucket).with('test').and_return(s3_bucket)
     allow(s3_bucket).to receive(:object).with(object_key).and_return(s3_object)
-    allow(active_storage_blob_class).to receive(:create!).with(key: object_key, filename: object_key, byte_size: content_length, checksum: etag.delete('"'), content_type: mimetype).and_return(blob)
+    allow(active_storage_blob_class).to receive(:create!).with(key: object_key, filename: object_key, byte_size: content_length, checksum: 'y+38s53VdyAMWIA6/KlMfnw=', content_type: mimetype).and_return(blob)
     allow(record).to receive("#{attribute_name}=").with(blob).and_return(blob)
     allow(record).to receive(:save).and_return(true)
   end
@@ -51,7 +51,7 @@ describe MobileWorkflow::AddAttachmentJob do
 
   describe '#perform_now' do
     it 'creates an ActiveStorage::Blob' do
-      expect(active_storage_blob_class).to receive(:create!).with(key: object_key, filename: object_key, byte_size: content_length, checksum: etag.delete('"'), content_type: mimetype)
+      expect(active_storage_blob_class).to receive(:create!).with(key: object_key, filename: object_key, byte_size: content_length, checksum: "y+38s53VdyAMWIA6/KlMfnw=", content_type: mimetype)
       described_class.perform_now(record, object_key, attribute_name)
     end
   end

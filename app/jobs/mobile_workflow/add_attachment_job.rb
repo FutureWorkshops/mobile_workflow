@@ -14,12 +14,17 @@ module MobileWorkflow
     def active_record_blob_from_s3(object_key)
       # etag cannot be used as the MD5 checksum when doing multi-part uploads
       s3_object = s3_bucket.object(object_key)
+      base64_digest = hex_to_base64_digest(s3_object.etag.delete('"'))
       ActiveStorage::Blob.create! key: s3_object.key, filename: s3_object.key, byte_size: s3_object.size,
-                                  checksum: s3_object.etag.delete('"'), content_type: s3_object.content_type
+                                  checksum: base64_digest, content_type: s3_object.content_type
     end
 
     def s3_bucket
       Aws::S3::Resource.new(region: ENV['AWS_REGION'], access_key_id: ENV['AWS_ACCESS_ID'], secret_access_key: ENV['AWS_SECRET_KEY']).bucket(ENV['AWS_BUCKET_NAME'])
+    end
+
+    def hex_to_base64_digest(hexdigest)
+      [[hexdigest].pack('H*')].pack('m0')
     end
   end
 end
