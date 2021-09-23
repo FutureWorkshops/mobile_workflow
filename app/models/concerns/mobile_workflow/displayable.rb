@@ -4,14 +4,21 @@ module MobileWorkflow
     include Rails.application.routes.url_helpers
 
     # MobileWorkflow Steps
-    include Steps::Grid
     include Steps::List
     include Steps::Map
     include Steps::PieChart
     include Steps::Question
     include Steps::Stack
+    include Steps::StyledContent::Grid
+    include Steps::StyledContent::Stack
+
+    ON_SUCCESS_OPTIONS = [:none, :reload, :backward, :forward]
     
     private
+    def validate_on_success!(on_success)
+      raise 'Unknown on_success action' unless ON_SUCCESS_OPTIONS.include?(on_success)
+    end
+    
     def preview_url(attachment, options:)
       return nil unless attachment.attached?
 

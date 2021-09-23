@@ -2,7 +2,6 @@ module MobileWorkflow
   module Displayable
     module Steps
       module Stack
-        ON_SUCCESS_OPTIONS = [:none, :reload, :backward, :forward]
         BUTTON_STYLES = [:primary, :outline, :danger]
         CONTENT_MODE_OPTIONS = [:scale_aspect_fill, :scale_aspect_fit] 
 
@@ -68,10 +67,6 @@ module MobileWorkflow
         alias_method :mw_display_button_for_modal_workflow, :mw_display_modal_workflow_button
 
         private
-        def validate_on_success!(on_success)
-          raise 'Unknown on_success action' unless ON_SUCCESS_OPTIONS.include?(on_success)
-        end
-        
         def validate_content_mode!(on_success)
           raise 'Unknown content_mode' unless CONTENT_MODE_OPTIONS.include?(on_success)
         end
