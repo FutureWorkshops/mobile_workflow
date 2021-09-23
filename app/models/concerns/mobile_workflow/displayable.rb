@@ -4,6 +4,7 @@ module MobileWorkflow
     include Rails.application.routes.url_helpers
 
     # MobileWorkflow Steps
+    include Steps::Form
     include Steps::List
     include Steps::Map
     include Steps::PieChart
