@@ -2,7 +2,6 @@ module MobileWorkflow
   module Displayable
     module Steps
       module Stack
-        BUTTON_STYLES = [:primary, :outline, :danger]
         CONTENT_MODE_OPTIONS = [:scale_aspect_fill, :scale_aspect_fit] 
 
         def mw_display_text(text:, label: nil)
@@ -69,10 +68,6 @@ module MobileWorkflow
         private
         def validate_content_mode!(on_success)
           raise 'Unknown content_mode' unless CONTENT_MODE_OPTIONS.include?(on_success)
-        end
-        
-        def validate_button_style!(style)
-          raise 'Unknown style' unless BUTTON_STYLES.include?(style)      
         end
 
         def attachment_url(attachment)

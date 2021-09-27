@@ -31,6 +31,7 @@ module MobileWorkflow
             raise 'Missing label' if label.nil?
         
             validate_on_success!(on_success)
+            validate_button_style!(style)
         
             { id: id, type: :button, label: label, url: url, method: method, onSuccess: on_success, style: style, modalWorkflow: modal_workflow_name, linkURL: link_url, sfSymbolName: sf_symbol_name, appleSystemURL: apple_system_url, androidDeepLink: android_deep_link, confirmTitle: confirm_title, confirmText: confirm_text }.compact
           end
