@@ -5,12 +5,10 @@ module MobileWorkflow
       include Rails.application.routes.url_helpers
     end
 
-    # Steps Class Methods
     def self.included(base)
       base.extend(Steps::Form)
     end
 
-    # Steps Instance Methods
     include Steps::List
     include Steps::Map
     include Steps::PieChart
