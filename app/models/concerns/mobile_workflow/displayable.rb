@@ -1,10 +1,16 @@
 module MobileWorkflow
   module Displayable
-    extend ActiveSupport::Concern
-    include Rails.application.routes.url_helpers
+    if defined?(Rails) && !Rails.env.test?
+      extend ActiveSupport::Concern
+      include Rails.application.routes.url_helpers
+    end
 
-    # MobileWorkflow Steps
-    include Steps::Form
+    # Steps Class Methods
+    def self.included(base)
+      base.extend(Steps::Form)
+    end
+
+    # Steps Instance Methods
     include Steps::List
     include Steps::Map
     include Steps::PieChart
@@ -24,9 +30,9 @@ module MobileWorkflow
     def validate_button_style!(style)
       raise 'Unknown style' unless BUTTON_STYLES.include?(style)      
     end
-    
+
     def preview_url(attachment, options:)
-      return nil unless attachment.attached?
+      return nil unless attachment.attached? && defined?(Rails)
 
       if attachment.image?
         rails_representation_url(attachment.variant(options), host: heroku_attachment_host)
@@ -39,7 +45,7 @@ module MobileWorkflow
 
     def heroku_attachment_host
       # TODO: MBS - move this to a configuration property
-      app_name = Rails.env.test? ? 'test-app' : ENV.fetch('HEROKU_APP_NAME')
+      app_name = defined?(Rails) && Rails.env.test? ? 'test-app' : ENV.fetch('HEROKU_APP_NAME')
       "https://#{app_name}.herokuapp.com"
     end
   end

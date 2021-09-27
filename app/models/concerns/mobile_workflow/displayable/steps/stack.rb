@@ -71,7 +71,7 @@ module MobileWorkflow
         end
 
         def attachment_url(attachment)
-          return nil unless attachment.attached?
+          return nil unless attachment.attached? && defined?(Rails)
         
           rails_blob_url(attachment, host: heroku_attachment_host)
         end
