@@ -22,7 +22,7 @@ module MobileWorkflow
             raise 'Missing text' if text.nil?
         
             mw_stack_list_item = { id: id.to_s, text: text, detailText: detail_text, type: :listItem }
-            mw_stack_list_item[:imageURL] = attachment.attached? ? preview_url(attachment, options: { resize_to_fill: [200, 200] }) : attachment_url
+            mw_stack_list_item[:imageURL] = attachment&.attached? ? preview_url(attachment, options: { resize_to_fill: [200, 200] }) : attachment_url
             mw_stack_list_item.compact
           end
         

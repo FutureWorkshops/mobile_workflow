@@ -42,7 +42,7 @@ module MobileWorkflow
           {type: :button, label: label, url: url, method: method, style: style, onSuccess: on_success, sfSymbolName: 'trash', materialIconName: 'delete'}.compact
         end
             
-        def mw_display_url_button(label:, url:, method: :put, style: :primary, confirm_title: nil, confirm_text: nil, on_success: :reload, sf_symbol_name: nil, material_icon_name: nil)
+        def mw_display_url_button(url:, label:, method: :put, style: :primary, confirm_title: nil, confirm_text: nil, on_success: :reload, sf_symbol_name: nil, material_icon_name: nil)
           validate_on_success!(on_success)
           validate_button_style!(style)
           
