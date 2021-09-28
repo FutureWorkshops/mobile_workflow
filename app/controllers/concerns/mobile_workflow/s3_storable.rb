@@ -1,3 +1,5 @@
+require 'aws-sdk-s3'
+
 module MobileWorkflow
   module S3Storable
     if Object.const_defined?("Aws::S3")

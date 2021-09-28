@@ -15,6 +15,4 @@ gemspec
 # gem 'byebug', group: [:development, :test]
 
 # FFI for Mac Mini M1
-gem 'ffi', github: 'ffi/ffi'
-gem 'aws-sdk-s3', '~> 1.60', '>= 1.60.1'
-gem 'aws-sdk-sns', '~> 1.23'
+gem 'ffi', '~> 1.15.3'

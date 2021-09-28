@@ -1,3 +1,5 @@
+require 'aws-sdk-sns'
+
 module MobileWorkflow
   class SnsNotificationsController < ActionController::API
     if Object.const_defined?("Aws::S3") && Object.const_defined?("Aws::SNS")
