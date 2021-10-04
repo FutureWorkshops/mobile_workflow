@@ -8,10 +8,10 @@ module MobileWorkflow
           {type: :text, label: label, text: text.to_s}.compact
         end
       
-        def mw_display_image(attachment, content_mode: :scale_aspect_fill, options: { resize_to_fill: [1200, 600] })
+        def mw_display_image(preview_url:, attachment_url:, content_mode: :scale_aspect_fill)
           validate_content_mode!(content_mode)
           
-          {type: :image, contentMode: content_mode.to_s.camelize(:lower), previewURL: preview_url(attachment, options: options), url: attachment_url(attachment)}
+          {type: :image, contentMode: content_mode.to_s.camelize(:lower), previewURL: preview_url, url: attachment_url}
         end
         
         def mw_display_unsplash_image(image_url)
@@ -23,8 +23,8 @@ module MobileWorkflow
           {type: :image, previewURL: image_url, url: image_url}.compact
         end
         
-        def mw_display_video(attachment, preview_options: { resize_to_fill: [600, 1200] })
-          {type: :video, previewURL: preview_url(attachment, options: preview_options), url: attachment_url(attachment)}
+        def mw_display_video(preview_url:, attachment_url:)
+          {type: :video, previewURL: preview_url, url: attachment_url}
         end
       
         def mw_display_button(label:, style: :primary, on_success: :forward, sf_symbol_name: nil, material_icon_name: nil)

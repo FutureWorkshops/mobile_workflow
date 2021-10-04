@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe MobileWorkflow::Displayable::Steps::StyledContent::Stack do
-  let(:test_class) { Struct.new(:id) { include MobileWorkflow::Displayable } }
+  let(:test_class) { Struct.new(:id) { include MobileWorkflow::Attachable, MobileWorkflow::Displayable } }
   let(:id) { 1 }
 
   subject { test_class.new(id) }
@@ -27,16 +27,10 @@ describe MobileWorkflow::Displayable::Steps::StyledContent::Stack do
   end
 
   describe '#mw_stack_list_item' do
-    context 'image attachment' do
-      let(:result) { subject.mw_stack_list_item(id: 0, text: 'John Doe', detail_text: 'Participant', attachment: attachment) }
-      let(:attachment) { attachment_class.new }
-      let(:attachment_class) do
-        Class.new do
-          def attached?
-            true
-          end
-        end
-      end
+    context 'attachment' do
+      let(:result) { subject.mw_stack_list_item(id: 0, text: 'John Doe', detail_text: 'Participant', preview_url: preview_url) }
+      let(:preview_url) { subject.preview_url(attachment) }
+      let(:attachment) { double(ActiveStorage::Attached::One) }
 
       before(:each) { allow(subject).to receive(:preview_url) { 'https://test.com/preview' } }
 
@@ -47,8 +41,8 @@ describe MobileWorkflow::Displayable::Steps::StyledContent::Stack do
       it { expect(result[:imageURL]).to eq 'https://test.com/preview' }
     end
 
-    context 'image url' do
-      let(:result) { subject.mw_stack_list_item(id: 0, text: 'John Doe', detail_text: 'Participant', attachment_url: 'https://test.com/image') }
+    context 'url' do
+      let(:result) { subject.mw_stack_list_item(id: 0, text: 'John Doe', detail_text: 'Participant', preview_url: 'https://test.com/image') }
 
       it { expect(result[:id]).to eq '0' }
       it { expect(result[:text]).to eq 'John Doe' }

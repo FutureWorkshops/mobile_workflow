@@ -17,13 +17,11 @@ module MobileWorkflow
             { id: id, text: text, type: :text }
           end
         
-          def mw_stack_list_item(id:, text:, detail_text: nil, attachment: nil, attachment_url: nil)
+          def mw_stack_list_item(id:, text:, detail_text: nil, preview_url: nil)
             raise 'Missing id' if id.nil?
             raise 'Missing text' if text.nil?
         
-            mw_stack_list_item = { id: id.to_s, text: text, detailText: detail_text, type: :listItem }
-            mw_stack_list_item[:imageURL] = attachment&.attached? ? preview_url(attachment, options: { resize_to_fill: [200, 200] }) : attachment_url
-            mw_stack_list_item.compact
+            { id: id.to_s, text: text, detailText: detail_text, type: :listItem, imageURL: preview_url }.compact
           end
         
           def mw_stack_button(id:, label:, url: nil, method: :nil, on_success: :none, style: :primary, modal_workflow_name: nil, link_url: nil, sf_symbol_name: nil, apple_system_url: nil, android_deep_link: nil, confirm_title: nil, confirm_text: nil)

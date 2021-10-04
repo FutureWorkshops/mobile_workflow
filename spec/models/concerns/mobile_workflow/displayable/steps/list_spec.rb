@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe MobileWorkflow::Displayable::Steps::List do
-  let(:test_class) { Struct.new(:id) { include MobileWorkflow::Displayable } }
+  let(:test_class) { Struct.new(:id) { include MobileWorkflow::Attachable, MobileWorkflow::Displayable } }
   let(:id) { 1 }
 
   subject { test_class.new(id) }
@@ -22,16 +22,10 @@ describe MobileWorkflow::Displayable::Steps::List do
       it { expect(result[:materialIconName]).to eq 'star' }
     end
 
-    context 'image attachment' do
-      let(:result) { subject.mw_list_item(text: 'London', image_attachment: attachment) }
-      let(:attachment) { attachment_class.new }
-      let(:attachment_class) do
-        Class.new do
-          def attached?
-            true
-          end
-        end
-      end
+    context 'attachment' do
+      let(:result) { subject.mw_list_item(text: 'London', preview_url: preview_url) }
+      let(:preview_url) { subject.preview_url(attachment) }
+      let(:attachment) { double(ActiveStorage::Attached::One) }
 
       before(:each) { allow(subject).to receive(:preview_url) { 'https://test.com/preview' } }
 
@@ -39,8 +33,8 @@ describe MobileWorkflow::Displayable::Steps::List do
       it { expect(result[:imageURL]).to eq 'https://test.com/preview' }
     end
 
-    context 'image url' do
-      let(:result) { subject.mw_list_item(text: 'London', image_url: 'https://test.com/image') }
+    context 'url' do
+      let(:result) { subject.mw_list_item(text: 'London', preview_url: 'https://test.com/image') }
 
       it { expect(result[:id]).to eq 1 }
       it { expect(result[:imageURL]).to eq 'https://test.com/image' }

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe MobileWorkflow::Displayable::Steps::StyledContent::Grid do
-  let(:test_class) { Struct.new(:id) { include MobileWorkflow::Displayable } }
+  let(:test_class) { Struct.new(:id) { include MobileWorkflow::Attachable, MobileWorkflow::Displayable } }
   let(:id) { 1 }
 
   subject { test_class.new(id) }
@@ -27,15 +27,9 @@ describe MobileWorkflow::Displayable::Steps::StyledContent::Grid do
   end
 
   describe '#mw_grid_item' do
-    let(:result) { subject.mw_grid_item(id: 0, text: 'Mountains', detail_text: 'Beautiful landscape', image_attachment: attachment) }
-    let(:attachment) { attachment_class.new }
-    let(:attachment_class) do
-      Class.new do
-        def attached?
-          true
-        end
-      end
-    end
+    let(:result) { subject.mw_grid_item(id: 0, text: 'Mountains', detail_text: 'Beautiful landscape', preview_url: preview_url) }
+    let(:preview_url) { subject.preview_url(attachment) }
+    let(:attachment) { double(ActiveStorage::Attached::One) }
 
     context 'ok' do
       before(:each) { allow(subject).to receive(:preview_url) { 'https://test.com/preview' } }
