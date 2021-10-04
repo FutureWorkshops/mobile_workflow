@@ -1,7 +1,5 @@
 module MobileWorkflow
   module Displayable
-    extend ActiveSupport::Concern if defined?(Rails)
-
     def self.included(base)
       base.extend(Steps::Form)
     end
