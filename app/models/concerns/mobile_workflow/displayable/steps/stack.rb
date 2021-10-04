@@ -69,12 +69,6 @@ module MobileWorkflow
         def validate_content_mode!(on_success)
           raise 'Unknown content_mode' unless CONTENT_MODE_OPTIONS.include?(on_success)
         end
-
-        def attachment_url(attachment)
-          return nil unless attachment.attached? && defined?(Rails)
-        
-          rails_blob_url(attachment, host: heroku_attachment_host)
-        end
       end
     end
   end
