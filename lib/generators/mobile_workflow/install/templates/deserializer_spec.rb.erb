@@ -1,0 +1,29 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+require 'json'
+
+RSpec.describe <%= @deserializer_class.capitalize %>Deserializer do
+  let(:params) { {} }
+
+  describe 'ok' do
+    let(:params) { { payload: payload } }
+    let(:parsed_params) { { <%= @deserializer_class %>: <%= @deserializer_class %>_params } }
+    let(:payload) {
+      {
+    <% @deserializer_properties.each do |attribute| -%>
+    <%= attribute %>: 'string',
+    <% end -%>
+    }
+    }
+    let(:<%= @deserializer_class %>_params) {
+      {
+    <% @deserializer_properties.each do |attribute| -%>
+    <%= attribute %>: 'string',
+    <% end -%>
+    }
+    }
+
+    it { expect(described_class.parse(params)).to eq parsed_params }
+  end
+end

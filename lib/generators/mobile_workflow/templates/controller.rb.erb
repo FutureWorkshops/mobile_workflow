@@ -41,7 +41,9 @@ class <%= controller_class_name %>Controller < ApiController
     # passport_id = params.dig(:payload, :choose_passport, :selected, :id)
 
     Rails.logger.debug "Pre-rewrite params: #{params}"
-    # Do your rewriting here
+
+    parsed_params = <%= controller_class_name.singularize %>Deserializer.parse(params)
+    params.merge!(parsed_params)
   end
 
   def <%= singular_table_name.underscore %>_params
