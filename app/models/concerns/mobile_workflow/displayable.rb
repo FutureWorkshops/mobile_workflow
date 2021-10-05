@@ -23,5 +23,12 @@ module MobileWorkflow
     def validate_button_style!(style)
       raise 'Unknown style' unless BUTTON_STYLES.include?(style)      
     end
+
+    def camelcase_converter(string, first_letter: :upper)
+      string = string.split("_").map(&:capitalize).join
+      return string unless first_letter == :lower
+
+      string[0].downcase + string[1..-1]
+    end
   end
 end

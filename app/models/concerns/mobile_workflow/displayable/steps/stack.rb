@@ -11,7 +11,7 @@ module MobileWorkflow
         def mw_display_image(preview_url:, attachment_url:, content_mode: :scale_aspect_fill)
           validate_content_mode!(content_mode)
           
-          {type: :image, contentMode: content_mode.to_s.camelize(:lower), previewURL: preview_url, url: attachment_url}
+          {type: :image, contentMode: camelcase_converter(content_mode.to_s, first_letter: :lower), previewURL: preview_url, url: attachment_url}
         end
         
         def mw_display_unsplash_image(image_url)
