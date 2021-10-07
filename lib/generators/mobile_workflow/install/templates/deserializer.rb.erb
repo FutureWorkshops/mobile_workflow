@@ -1,0 +1,13 @@
+class <%= @deserializer_class.capitalize %>Deserializer
+  def self.parse(params)
+  <% @deserializer_properties.each do |attribute| -%>
+  <%= attribute %> = params.dig(:payload, :<%= attribute %>)
+  <% end -%>
+
+    { <%= @deserializer_class %>: {
+    <% @deserializer_properties.each do |attribute| -%>
+    <%= attribute %>: <%= attribute %>,
+    <% end -%>
+    }.compact }
+  end
+end

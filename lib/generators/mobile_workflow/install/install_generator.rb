@@ -67,6 +67,18 @@ module MobileWorkflow
         end
       end
 
+      def generate_deserializers
+        say "Generating deserializers"
+
+        model_name_to_properties.each_pair do |model_name, properties|
+          @deserializer_class = model_name
+          @deserializer_properties = properties.split(' ').map { |attribute| attribute.split(':').first }
+
+          template("deserializer.rb.erb", "app/services/#{model_name}_deserializer.rb")
+          template("deserializer_spec.rb.erb", "spec/services/#{model_name}_deserializer_spec.rb")
+        end
+      end
+
       def generate_controllers_and_routes
         say "Generating controllers"
         controller_name_to_actions = open_api_spec.controller_name_to_actions
