@@ -1,5 +1,6 @@
 module MobileWorkflow
   module Attachable
+    extend ActiveSupport::Concern
     include Rails.application.routes.url_helpers
 
     def preview_url(attachment, options: { resize_to_fill: [200, 200] })
