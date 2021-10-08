@@ -47,7 +47,7 @@ class <%= controller_class_name %>Controller < ApiController
   end
 
   def <%= singular_table_name.underscore %>_params
-    params.require(:payload).permit(<%= permitted_params %>)
+    params.require(:<%= singular_table_name %>).permit(<%= permitted_params %>)
   end
 <% end -%>
 end
