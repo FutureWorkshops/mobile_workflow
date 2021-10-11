@@ -9,14 +9,20 @@ class <%= class_name %> < <%= parent_class_name.classify %>
 <% attributes.select(&:attachments?).each do |attribute| -%>
   has_many_attached :<%= attribute.name %>
 <% end -%>
+<% if class_name == 'User' -%>
+<% if doorkeeper_oauth? -%>
+  has_many :access_grants, class_name: 'Doorkeeper::AccessGrant', foreign_key: :resource_owner_id, dependent: :destroy
+  has_many :access_tokens, class_name: 'Doorkeeper::AccessToken', foreign_key: :resource_owner_id, dependent: :destroy
+<% end -%>
 <% attributes.each do |attribute| -%>
-<% if class_name == 'User' && attribute.name == 'email' -%>
+<% if attribute.name == 'email' -%>
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   before_validation :downcase_email, if: :email_changed?
 
   def downcase_email
     self.email = email.downcase
   end
+<% end -%>
 <% end -%>
 <% end -%>
 
