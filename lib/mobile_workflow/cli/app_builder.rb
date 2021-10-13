@@ -88,6 +88,7 @@ CODE
       generate 'rollbar'
       gsub_file 'config/initializers/rollbar.rb', 'if Rails.env.test?', 'if Rails.env.test? || Rails.env.development?'
       copy_file 'config/initializers/mobile_workflow_rollbar.rb'
+      gsub_file 'app/jobs/application_job.rb', 'class ApplicationJob < ActiveJob::Base', "class ApplicationJob < ActiveJob::Base\n  include Rollbar::ActiveJob\n"
     end
     
     def git_commit(message = 'Initial commit')
