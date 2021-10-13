@@ -78,6 +78,15 @@ ADMIN_USER=#{admin_user}
 ADMIN_PASSWORD=#{admin_password}
 CODE
     end
+
+    def rubocop
+      copy_file '.rubocop.yml'
+      command = 'rubocop --auto-gen-config'
+
+      puts "Running: #{command}"
+      output = `#{command}`
+      puts "Output: #{output}"
+    end
     
     def simplecov
       append_to_file 'spec/rails_helper.rb', "\n# Config for Test Coverage\nrequire 'simplecov'\nSimpleCov.start\nSimpleCov.minimum_coverage 80\n"

@@ -1,0 +1,52 @@
+require:
+  - rubocop-rspec
+  - rubocop-rails
+
+Metrics/AbcSize:
+  Max: 35
+
+Metrics/BlockLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Max: 45
+
+Layout/LineLength:
+  Max: 500
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: false
+
+Rails/ContentTag:
+  Enabled: false
+
+RSpec/ContextWording:
+  Enabled: false
+
+RSpec/NamedSubject:
+  Enabled: false
+
+RSpec/SubjectStub:
+  Enabled: false
+
+RSpec/HookArgument:
+  EnforcedStyle: each
+
+AllCops:
+  NewCops: disable
+  Exclude:
+    - 'bin/*'
+    - 'config/*'
+    - 'config/**/*'
+    - 'config.ru'
+    - 'db/data_schema.rb'
+    - 'db/schema.rb'
+    - 'Rakefile'
+    - 'spec/rails_helper.rb'
+    - 'spec/spec_helper.rb'

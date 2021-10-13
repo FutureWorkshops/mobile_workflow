@@ -43,6 +43,7 @@ module MobileWorkflow::Cli
         build :administrate_generator
         build :format_source
         build :generate_dot_env
+        build :rubocop
         build :git_commit
         build :heroku if options[:heroku]
         build :dokku, options[:dokku_host] if options[:dokku]
