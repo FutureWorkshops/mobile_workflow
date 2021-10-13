@@ -84,6 +84,12 @@ CODE
       append_to_file '.gitignore', "\n# Ignore test coverage reports\n/coverage\n"
     end
     
+    def rollbar
+      generate 'rollbar'
+      gsub_file 'config/initializers/rollbar.rb', 'if Rails.env.test?', 'if Rails.env.test? || Rails.env.development?'
+      copy_file 'config/initializers/mobile_workflow_rollbar.rb'
+    end
+    
     def git_commit(message = 'Initial commit')
       git add: "."
       git commit: %Q{ -m '#{message}'}

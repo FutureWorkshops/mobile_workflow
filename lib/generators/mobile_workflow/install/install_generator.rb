@@ -100,12 +100,6 @@ module MobileWorkflow
         end
       end
 
-      def generate_rollbar
-        generate 'rollbar'
-        gsub_file 'config/initializers/rollbar.rb', 'if Rails.env.test?', 'if Rails.env.test? || Rails.env.development?'
-        copy_file 'config/initializers/mobile_workflow_rollbar.rb'
-      end
-
       def generate_seeds
         template("seeds.rb.erb", "db/seeds.rb", force: true)
       end
