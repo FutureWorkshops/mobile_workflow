@@ -36,7 +36,6 @@ module MobileWorkflow::Cli
         build :factory_bot
         build :simplecov
         build :rollbar
-        build :ability_generator
         build :active_storage if options[:s3_storage] 
         build :mobile_workflow_generator, ARGV[1]
         build :migrate_db

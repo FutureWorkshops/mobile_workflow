@@ -48,10 +48,6 @@ CODE
       generate 'administrate:routes'
     end
     
-    def ability_generator
-      copy_file 'ability.rb', 'app/models/ability.rb'
-    end
-    
     def active_storage
       rails_command 'active_storage:install'
       copy_file 'storage.s3.yml', 'config/storage.yml'
