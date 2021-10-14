@@ -99,7 +99,7 @@ module MobileWorkflow
           route "resources :#{plural_controller_name}, only: [#{actions.map{|a| ":#{a}"}.join(", ")}]"
         end
       end
-      
+
       def generate_seeds
         template("seeds.rb.erb", "db/seeds.rb", force: true)
       end

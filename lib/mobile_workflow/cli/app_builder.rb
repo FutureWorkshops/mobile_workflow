@@ -79,6 +79,18 @@ ADMIN_PASSWORD=#{admin_password}
 CODE
     end
     
+    def simplecov
+      append_to_file 'spec/rails_helper.rb', "\n# Config for Test Coverage\nrequire 'simplecov'\nSimpleCov.start\nSimpleCov.minimum_coverage 80\n"
+      append_to_file '.gitignore', "\n# Ignore test coverage reports\n/coverage\n"
+    end
+    
+    def rollbar
+      generate 'rollbar'
+      gsub_file 'config/initializers/rollbar.rb', 'if Rails.env.test?', 'if Rails.env.test? || Rails.env.development?'
+      copy_file 'config/initializers/mobile_workflow_rollbar.rb'
+      gsub_file 'app/jobs/application_job.rb', 'class ApplicationJob < ActiveJob::Base', "class ApplicationJob < ActiveJob::Base\n  include Rollbar::ActiveJob\n"
+    end
+    
     def git_commit(message = 'Initial commit')
       git add: "."
       git commit: %Q{ -m '#{message}'}
