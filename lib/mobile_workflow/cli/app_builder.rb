@@ -48,10 +48,6 @@ CODE
       generate 'administrate:routes'
     end
     
-    def ability_generator
-      copy_file 'ability.rb', 'app/models/ability.rb'
-    end
-    
     def active_storage
       rails_command 'active_storage:install'
       copy_file 'storage.s3.yml', 'config/storage.yml'
@@ -77,6 +73,15 @@ CODE
 ADMIN_USER=#{admin_user}
 ADMIN_PASSWORD=#{admin_password}
 CODE
+    end
+
+    def rubocop
+      copy_file '.rubocop.yml'
+      command = 'rubocop --auto-gen-config'
+
+      puts "Running: #{command}"
+      output = `#{command}`
+      puts "Output: #{output}"
     end
     
     def simplecov

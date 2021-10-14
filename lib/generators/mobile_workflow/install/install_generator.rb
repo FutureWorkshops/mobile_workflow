@@ -67,6 +67,10 @@ module MobileWorkflow
         end
       end
 
+      def ability_generator
+        copy_file("app/models/ability.rb")
+      end
+
       def generate_deserializers
         say "Generating deserializers"
 

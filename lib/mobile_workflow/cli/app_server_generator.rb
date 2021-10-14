@@ -36,13 +36,13 @@ module MobileWorkflow::Cli
         build :factory_bot
         build :simplecov
         build :rollbar
-        build :ability_generator
         build :active_storage if options[:s3_storage] 
         build :mobile_workflow_generator, ARGV[1]
         build :migrate_db
         build :administrate_generator
         build :format_source
         build :generate_dot_env
+        build :rubocop
         build :git_commit
         build :heroku if options[:heroku]
         build :dokku, options[:dokku_host] if options[:dokku]

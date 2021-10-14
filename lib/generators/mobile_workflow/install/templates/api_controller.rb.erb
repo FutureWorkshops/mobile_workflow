@@ -10,7 +10,7 @@ class ApiController < ActionController::API
   def current_resource_owner
     @current_resource_owner ||= User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token&.accessible?
   end
-  alias_method :current_user, :current_resource_owner
+  alias current_user current_resource_owner
   
   protected
   def anonymous_action?
