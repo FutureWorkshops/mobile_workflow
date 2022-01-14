@@ -37,18 +37,18 @@ module MobileWorkflow
           { item_type: :text, label: label, identifier: identifier, placeholder: placeholder, optional: optional, multiline: multiline, default_text_answer: default_text_answer }
         end
     
-        def mw_form_date(label:, identifier:, optional: false, default_date_time_answer: nil)
+        def mw_form_date(label:, identifier:, optional: false, default_text_answer: nil)
           raise 'Missing label' if label.nil?
           raise 'Missing identifier' if identifier.nil?
     
-          { item_type: :date, date_type: :calendar, label: label, identifier: identifier, optional: optional, default_date_time_answer: default_date_time_answer }
+          { item_type: :date, date_type: :calendar, label: label, identifier: identifier, optional: optional, default_text_answer: default_text_answer }
         end
     
-        def mw_form_time(label:, identifier:, optional: false, default_date_time_answer: nil)
+        def mw_form_time(label:, identifier:, optional: false, default_text_answer: nil)
           raise 'Missing label' if label.nil?
           raise 'Missing identifier' if identifier.nil?
     
-          { item_type: :time, label: label, identifier: identifier, optional: optional, default_date_time_answer: default_date_time_answer }
+          { item_type: :time, label: label, identifier: identifier, optional: optional, default_text_answer: default_text_answer }
         end
     
         def mw_form_email(label:, identifier:, placeholder: nil, optional: false, default_text_answer: nil)
