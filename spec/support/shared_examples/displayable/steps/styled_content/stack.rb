@@ -92,5 +92,16 @@ shared_examples_for 'styled content stack' do |param|
       it { expect(result[:onSuccess]).to eq :reload }
       it { expect(result[:style]).to eq :outline }
     end
+
+    context 'share text and share image url' do
+      let(:result) { subject.mw_stack_button(id: 0, label: 'Share Challenge', share_text: 'Challenge completed!', share_image_url: 'https://test.com/image', on_success: :none) }
+
+      it { expect(result[:id]).to eq 0 }
+      it { expect(result[:type]).to eq :button }
+      it { expect(result[:label]).to eq 'Share Challenge' }
+      it { expect(result[:shareText]).to eq 'Challenge completed!' }
+      it { expect(result[:shareImageURL]).to eq 'https://test.com/image' }
+      it { expect(result[:onSuccess]).to eq :none }
+    end
   end
 end
