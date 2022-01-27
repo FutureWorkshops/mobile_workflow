@@ -82,6 +82,17 @@ shared_examples_for 'styled content stack' do |param|
       it { expect(result[:onSuccess]).to eq :none }
     end
 
+    context 'link id' do
+      let(:result) { subject.mw_stack_button(id: 0, label: 'Import', link_id: '9e5ad548-dd58-4f9b-adbe-99c59049398', on_success: :reload, style: :outline) }
+
+      it { expect(result[:id]).to eq 0 }
+      it { expect(result[:type]).to eq :button }
+      it { expect(result[:label]).to eq 'Import' }
+      it { expect(result[:linkId]).to eq '9e5ad548-dd58-4f9b-adbe-99c59049398' }
+      it { expect(result[:onSuccess]).to eq :reload }
+      it { expect(result[:style]).to eq :outline }
+    end
+
     context 'modal workflow' do
       let(:result) { subject.mw_stack_button(id: 0, label: 'Import', modal_workflow_name: 'Import Activity', on_success: :reload, style: :outline) }
 

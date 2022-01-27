@@ -56,7 +56,15 @@ module MobileWorkflow
           {type: :button, label: label, appleSystemURL: apple_system_url, androidDeepLink: android_deep_link, style: style, sfSymbolName: sf_symbol_name, materialIconName: material_icon_name}.compact
         end
         alias_method :mw_display_button_for_system_url, :mw_display_system_url_button
-        
+
+        def mw_display_link_button(label:, link_id:, style: :primary, on_success: :none, sf_symbol_name: nil, material_icon_name: nil)
+          validate_on_success!(on_success)
+          validate_button_style!(style)
+
+          {type: :button, label: label, linkId: link_id, style: style, onSuccess: on_success, sfSymbolName: sf_symbol_name, materialIconName: material_icon_name}.compact
+        end
+
+        # Remove this method once V1 is no longer being used
         def mw_display_modal_workflow_button(label:, modal_workflow_name:, style: :primary, on_success: :none, sf_symbol_name: nil, material_icon_name: nil)
           validate_on_success!(on_success)
           validate_button_style!(style)

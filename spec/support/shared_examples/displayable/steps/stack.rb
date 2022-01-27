@@ -118,6 +118,18 @@ shared_examples_for 'stack' do |param|
     it { expect(result[:materialIconName]).to eq 'World' }
   end
 
+  describe '#mw_display_link_button' do
+    let(:result) { subject.mw_display_link_button(label: 'Log In', link_id: '9e5ad548-dd58-4f9b-adbe-99c59049398', style: :primary, on_success: :none, sf_symbol_name: 'Login', material_icon_name: 'Login') }
+
+    it { expect(result[:type]).to eq :button }
+    it { expect(result[:label]).to eq 'Log In' }
+    it { expect(result[:linkId]).to eq '9e5ad548-dd58-4f9b-adbe-99c59049398' }
+    it { expect(result[:style]).to eq :primary }
+    it { expect(result[:onSuccess]).to eq :none }
+    it { expect(result[:sfSymbolName]).to eq 'Login' }
+    it { expect(result[:materialIconName]).to eq 'Login' }
+  end
+
   describe '#mw_display_modal_workflow_button' do
     let(:result) { subject.mw_display_modal_workflow_button(label: 'Log In', modal_workflow_name: 'Log In', style: :primary, on_success: :none, sf_symbol_name: 'Login', material_icon_name: 'Login') }
 
