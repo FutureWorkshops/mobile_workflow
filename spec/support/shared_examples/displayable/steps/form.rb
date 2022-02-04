@@ -53,7 +53,7 @@ shared_examples_for 'form' do
   end
 
   describe '#mw_form_text' do
-    let(:result) { test_class.mw_form_text(label: 'Your Location', id: 1, placeholder: 'London') }
+    let(:result) { test_class.mw_form_text(label: 'Your Location', id: 1, placeholder: 'London', hint: 'Maximum 20 characters') }
 
     it { expect(result[:id]).to eq 1 }
     it { expect(result[:item_type]).to eq :text }
@@ -61,6 +61,7 @@ shared_examples_for 'form' do
     it { expect(result[:placeholder]).to eq 'London' }
     it { expect(result[:optional]).to eq false }
     it { expect(result[:multiline]).to eq false }
+    it { expect(result[:hint]).to eq 'Maximum 20 characters' }
   end
 
   describe '#mw_form_date' do

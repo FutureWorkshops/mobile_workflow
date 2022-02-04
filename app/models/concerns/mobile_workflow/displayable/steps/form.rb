@@ -35,12 +35,12 @@ module MobileWorkflow
             placeholder: placeholder, optional: optional, symbol_position: symbol_position, default_text_answer: default_text_answer, hint: hint }
         end
 
-        def mw_form_text(label:, id:, placeholder: nil, optional: false, multiline: false, default_text_answer: nil)
+        def mw_form_text(label:, id:, placeholder: nil, optional: false, multiline: false, default_text_answer: nil, hint: nil)
           raise 'Missing label' if label.nil?
           raise 'Missing id' if id.nil?
 
           { item_type: :text, id: id, label: label, placeholder: placeholder,
-            optional: optional, multiline: multiline, default_text_answer: default_text_answer }
+            optional: optional, multiline: multiline, default_text_answer: default_text_answer, hint: hint }
         end
 
         def mw_form_date(label:, id:, optional: false, default_text_answer: nil)
