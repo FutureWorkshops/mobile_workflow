@@ -17,11 +17,15 @@ module MobileWorkflow
 
     def attachment_url(attachment)
       return nil unless attachment.attached?
-    
-      rails_blob_url(attachment, host: heroku_attachment_host)
+
+      rails_blob_url(attachment, host: attachment_host)
     end
 
     private
+
+    def attachment_host
+      ENV.fetch('ATTACHMENTS_HOST', heroku_attachment_host)
+    end
 
     def heroku_attachment_host
       # TODO: MBS - move this to a configuration property

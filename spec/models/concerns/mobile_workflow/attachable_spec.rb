@@ -26,4 +26,30 @@ describe MobileWorkflow::Attachable do
       it { expect(result).to eq 'https://test.com/preview' }
     end
   end
+
+  context 'attachment_host' do
+    context 'heroku' do
+      before(:each) { stub_const('ENV', 'HEROKU_APP_NAME' => 'mobile-workflow') }
+
+      context 'test environment' do
+        it { expect(subject.send(:attachment_host)).to eq 'https://test-app.herokuapp.com' }
+      end
+
+      context 'development environment' do
+        before(:each) { allow(Rails.env).to receive(:test?).and_return(false) }
+
+        it { expect(subject.send(:attachment_host)).to eq 'https://mobile-workflow.herokuapp.com' }
+      end
+    end
+
+    context 'custom' do
+      before(:each) { stub_const('ENV', 'ATTACHMENTS_HOST' => 'http://attachments.com', 'HEROKU_APP_NAME' => 'mobile-workflow') }
+
+      it { expect(subject.send(:attachment_host)).to eq 'http://attachments.com' }
+    end
+
+    context 'none' do
+      it { expect(subject.send(:attachment_host)).to eq 'https://test-app.herokuapp.com' }
+    end
+  end
 end
