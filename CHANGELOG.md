@@ -1,3 +1,6 @@
+# 0.10.1
+* Include `app_rail-steps` gem and alias list methods to methods in this gem as initial test
+
 # 0.10.0
 
 ### Breaking changes
