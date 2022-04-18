@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'aws-sdk-s3', '~> 1.60', '>= 1.60.1'
   spec.add_dependency 'aws-sdk-sns', '~> 1.23'
   spec.add_dependency "rails", ">= #{MobileWorkflow::RAILS_VERSION}", '< 7'
-  spec.add_dependency "app_rail-steps"
+  spec.add_dependency "app_rail-steps", '~> 0.2.3'
 
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "rspec-rails"
