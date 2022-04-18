@@ -4,9 +4,10 @@ module MobileWorkflow
   module Displayable
     module Steps
       module List
+        extend MobileWorkflow::Deprecated
         include AppRail::Steps::Core::List
-        alias_method :mw_list_item, :ar_core_list_item
-        alias_method :mw_list_search_suggestion, :ar_core_list_search_suggestion
+        deprecated_alias :mw_list_item, :ar_core_list_item
+        deprecated_alias :mw_list_search_suggestion, :ar_core_list_search_suggestion
       end
     end
   end
