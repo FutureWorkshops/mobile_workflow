@@ -6,7 +6,6 @@ module MobileWorkflow
 
     include Steps::List
     include Steps::Map
-    include Steps::PieChart
     include Steps::Question
     include Steps::Stack
     include Steps::StyledContent::Grid

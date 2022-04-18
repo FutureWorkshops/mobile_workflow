@@ -3,7 +3,6 @@ require_relative '../../app/models/concerns/mobile_workflow/displayable/steps/st
 require_relative '../../app/models/concerns/mobile_workflow/displayable/steps/form.rb'
 require_relative '../../app/models/concerns/mobile_workflow/displayable/steps/list.rb'
 require_relative '../../app/models/concerns/mobile_workflow/displayable/steps/map.rb'
-require_relative '../../app/models/concerns/mobile_workflow/displayable/steps/pie_chart.rb'
 require_relative '../../app/models/concerns/mobile_workflow/displayable/steps/question.rb'
 require_relative '../../app/models/concerns/mobile_workflow/displayable/steps/stack.rb'
 require_relative '../../app/models/concerns/mobile_workflow/displayable.rb'

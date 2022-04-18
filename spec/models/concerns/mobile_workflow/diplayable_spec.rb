@@ -14,7 +14,6 @@ describe MobileWorkflow::Displayable do
   include_examples 'form'
   include_examples 'list', { active_storage_enabled: false }
   include_examples 'map'
-  include_examples 'pie chart'
   include_examples 'question'
   include_examples 'stack', { active_storage_enabled: false }
 end
