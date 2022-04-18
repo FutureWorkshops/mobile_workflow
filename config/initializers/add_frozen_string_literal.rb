@@ -8,11 +8,12 @@
 return unless defined?(::Rails::Generators)
 
 module RailsGeneratorFrozenStringLiteralPrepend
-  RUBY_EXTENSIONS = %w[.rb .rake]
+  RUBY_EXTENSIONS = %w[.rb .rake].freeze
 
   def render
-    return super unless RUBY_EXTENSIONS.include? File.extname(self.destination)
-    "# frozen_string_literal: true\n\n" + super
+    return super unless RUBY_EXTENSIONS.include? File.extname(destination)
+
+    "# frozen_string_literal: true\n\n#{super}"
   end
 end
 

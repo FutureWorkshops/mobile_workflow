@@ -1,28 +1,17 @@
+# frozen_string_literal: true
+
+require 'app_rail/steps'
+
 module MobileWorkflow
   module Displayable
     module Steps
       module StyledContent
         module Grid
-          def mw_grid_large_section(id:, text:)
-            raise 'Missing id' if id.nil?
-            raise 'Missing text' if text.nil?
-            
-            { id: id, text: text, type: :largeSection }
-          end
-          
-          def mw_grid_small_section(id:, text:)
-            raise 'Missing id' if id.nil?
-            raise 'Missing text' if text.nil?
-            
-            { id: id, text: text, type: :smallSection }
-          end
-          
-          def mw_grid_item(id: self.id, text:, detail_text: nil, preview_url: nil)
-            raise 'Missing id' if id.nil?
-            raise 'Missing text' if text.nil?
-            
-            { id: id, text: text, type: :item, detailText: detail_text, imageURL: preview_url }.compact
-          end
+          extend MobileWorkflow::Deprecated
+          include AppRail::Steps::StyledContent::Grid
+          deprecated_alias :mw_grid_large_section, :ar_styled_content_grid_large_section
+          deprecated_alias :mw_grid_small_section, :ar_styled_content_grid_small_section
+          deprecated_alias :mw_grid_item, :ar_styled_content_grid_item
         end
       end
     end

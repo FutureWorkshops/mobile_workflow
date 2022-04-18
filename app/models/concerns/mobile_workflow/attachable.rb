@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module MobileWorkflow
   module Attachable
     extend ActiveSupport::Concern
@@ -10,8 +12,6 @@ module MobileWorkflow
         rails_representation_url(attachment.variant(options), host: heroku_attachment_host)
       elsif attachment.previewable?
         rails_representation_url(attachment.preview(options), host: heroku_attachment_host)
-      else
-        return nil
       end
     end
 
