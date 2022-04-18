@@ -1,3 +1,6 @@
+# 0.11.0
+Deprecate all step JSON util methods "mw_*" and move to `app_rail-steps`. Methods are aliased for backwards compatibility.
+
 # 0.10.2
 * Include `app_rail-steps` gem and alias list methods to methods in this gem as initial test
 
