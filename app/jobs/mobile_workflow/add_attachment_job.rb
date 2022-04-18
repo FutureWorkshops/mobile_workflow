@@ -20,7 +20,8 @@ module MobileWorkflow
     end
 
     def s3_bucket
-      Aws::S3::Resource.new(region: ENV['AWS_REGION'], access_key_id: ENV['AWS_ACCESS_ID'], secret_access_key: ENV['AWS_SECRET_KEY']).bucket(ENV['AWS_BUCKET_NAME'])
+      Aws::S3::Resource.new(region: ENV['AWS_REGION'], access_key_id: ENV['AWS_ACCESS_ID'],
+                            secret_access_key: ENV['AWS_SECRET_KEY']).bucket(ENV['AWS_BUCKET_NAME'])
     end
 
     def hex_to_base64_digest(hexdigest)

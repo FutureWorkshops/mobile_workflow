@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 require_relative '../lib/mobile_workflow/cli'
 
 # Byebug for dev
@@ -8,27 +10,26 @@ rescue LoadError
 end
 
 if ARGV.empty?
-  puts "USAGE: mwf <platform> <command> [options]"
-  puts "Example: mwf rails create:app_server --help"
-  puts "Example: mwf rails destroy:app_server --help"
+  puts 'USAGE: mwf <platform> <command> [options]'
+  puts 'Example: mwf rails create:app_server --help'
+  puts 'Example: mwf rails destroy:app_server --help'
   exit 0
 elsif ['-v', '--version'].include? ARGV[0]
   puts MobileWorkflow::VERSION
   exit 0
-elsif 'rails' == ARGV[0] && 'create:app_server' == ARGV[1]
+elsif ARGV[0] == 'rails' && ARGV[1] == 'create:app_server'
   ARGV.shift
   ARGV.shift
-  
-  templates_root = File.expand_path(File.join("..", "lib", "generators", "mobile_workflow", "install", "templates"), File.dirname(__FILE__))
+
+  templates_root = File.expand_path(File.join('..', 'lib', 'generators', 'mobile_workflow', 'install', 'templates'),
+                                    File.dirname(__FILE__))
   MobileWorkflow::Cli::AppServerGenerator.source_root templates_root
   MobileWorkflow::Cli::AppServerGenerator.source_paths << Rails::Generators::AppGenerator.source_root << templates_root
   MobileWorkflow::Cli::AppServerGenerator.start
-elsif 'rails' == ARGV[0] && 'destroy:app_server' == ARGV[1]
+elsif ARGV[0] == 'rails' && ARGV[1] == 'destroy:app_server'
   ARGV.shift
   ARGV.shift
-  
+
   ARGV.unshift(MobileWorkflow::Cli::AppServerCleaner.default_task) unless ARGV[0] == '--help'
   MobileWorkflow::Cli::AppServerCleaner.start(ARGV)
 end
-
-

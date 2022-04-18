@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe MobileWorkflow::Attachable do
-  let(:test_class) { Class.new { include MobileWorkflow::Attachable } }
-
   subject { test_class.new }
+
+  let(:test_class) { Class.new { include MobileWorkflow::Attachable } }
 
   describe '#preview_url' do
     let(:result) { subject.preview_url(attachment, options: { resize_to_fill: [600, 1200] }) }

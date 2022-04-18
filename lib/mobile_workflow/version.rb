@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module MobileWorkflow
   VERSION = '0.10.2'
   RUBY_VERSION = '2.7.3'

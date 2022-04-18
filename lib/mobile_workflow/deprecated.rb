@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module MobileWorkflow
   module Deprecated
-
     # Define a deprecated alias for a method
     # @param [Symbol] name - name of method to define
     # @param [Symbol] replacement - name of method to (alias)
@@ -29,6 +30,5 @@ module MobileWorkflow
         send old_name, *args, &block
       end
     end
-
   end
 end
