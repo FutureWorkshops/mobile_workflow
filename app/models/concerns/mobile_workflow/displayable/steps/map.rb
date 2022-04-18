@@ -1,10 +1,12 @@
+require 'app_rail/steps'
+
 module MobileWorkflow
   module Displayable
     module Steps
       module Map
-        def mw_map_item(id: self.id, text:, detail_text: nil, latitude:, longitude:)
-          {id: id.to_s, text: text, detailText: detail_text, latitude: latitude, longitude: longitude}.compact
-        end
+        extend MobileWorkflow::Deprecated
+        include AppRail::Steps::Maps::Map
+        deprecated_alias :mw_map_item, :ar_maps_map_item
       end
     end
   end
