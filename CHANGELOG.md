@@ -1,3 +1,6 @@
+# 0.11.1
+Add `ATTACHMENTS_HOST` environment variable to be able to define a custom host different than a Heroku one (`https://#{app_name}.herokuapp.com`) when generating preview urls in `MobileWorkflow::Attachable#preview_url`.
+
 # 0.11.0
 Deprecate all step JSON util methods "mw_*" and move to `app_rail-steps`. Methods are aliased for backwards compatibility.
 
