@@ -20,11 +20,11 @@ describe MobileWorkflow::S3Storable do
     end
 
     context 'single binary' do
-      let(:params) { { binaries: [{ identifier: 'image.jpg', mimetype: 'image/jpg' }] } }
+      let(:params) { { binaries: [{ identifier: '4df0a3f0-3713-44c5-9391-df4590d316cf', mimetype: 'image/jpg', key: 'image' }] } }
 
       it { expect(subject.binary_urls(object).count).to eq 1 }
 
-      it { expect(subject.binary_urls(object)[0][:identifier]).to eq 'image.jpg' }
+      it { expect(subject.binary_urls(object)[0][:identifier]).to eq '4df0a3f0-3713-44c5-9391-df4590d316cf' }
 
       it { expect(subject.binary_urls(object)[0][:url]).to eq 'https://aws.com/upload' }
 
@@ -33,11 +33,11 @@ describe MobileWorkflow::S3Storable do
 
     context 'with metadata' do
       let(:metadata) { { md5: 'fc7925ceff85b44276c576a72cd3f811' } }
-      let(:params) { { binaries: [{ identifier: 'image.jpg', mimetype: 'image/jpg', metadata: metadata }] } }
+      let(:params) { { binaries: [{ identifier: '4df0a3f0-3713-44c5-9391-df4590d316cf', mimetype: 'image/jpg', key: 'image', metadata: metadata }] } }
 
       it { expect(subject.binary_urls(object).count).to eq 1 }
 
-      it { expect(subject.binary_urls(object)[0][:identifier]).to eq 'image.jpg' }
+      it { expect(subject.binary_urls(object)[0][:identifier]).to eq '4df0a3f0-3713-44c5-9391-df4590d316cf' }
 
       it { expect(subject.binary_urls(object)[0][:url]).to eq 'https://aws.com/upload' }
 
