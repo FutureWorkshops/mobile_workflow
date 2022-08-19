@@ -1,3 +1,6 @@
+# 0.12.0
+Remove mw_* methods from gem and remove and `app_rail_steps` from gemspec. Allow Rails 7.
+
 # 0.11.1
 Add `ATTACHMENTS_HOST` environment variable to be able to define a custom host different than a Heroku one (`https://#{app_name}.herokuapp.com`) when generating preview urls in `MobileWorkflow::Attachable#preview_url`.
 
