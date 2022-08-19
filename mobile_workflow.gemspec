@@ -19,7 +19,6 @@ Gem::Specification.new do |spec|
   spec.files = Dir['{app,config,db,lib,bin}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
   spec.executables = ['mwf']
 
-  spec.add_dependency 'app_rail-steps', '~> 0.2.5'
   spec.add_dependency 'aws-sdk-s3', '~> 1.60', '>= 1.60.1'
   spec.add_dependency 'aws-sdk-sns', '~> 1.23'
   spec.add_dependency 'rails', ">= #{MobileWorkflow::RAILS_VERSION}"
