@@ -18,3 +18,8 @@ gemspec
 
 # FFI for Mac Mini M1
 gem 'ffi', '~> 1.15.3'
+
+# These are now bundled Gems
+gem 'net-smtp' # to send email
+gem 'net-imap' # for rspec
+gem 'net-pop'  # for rspec
